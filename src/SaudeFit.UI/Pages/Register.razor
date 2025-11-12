@@ -1,0 +1,49 @@
+﻿@page "/register"
+@using SaudeFit.UI.Services
+@using SaudeFit.UI.Models
+@inject IAuthService AuthService
+@inject NavigationManager Nav
+
+<div class="login-container">
+    <div class="login-box">
+        <h2>SaudeFit</h2>
+        <h3>Criar Conta</h3>
+
+        <input class="login-input" @bind="request.Email" placeholder="Email" />
+        <input class="login-input" @bind="request.Password" placeholder="Senha" type="password" />
+        <input class="login-input" @bind="request.ConfirmPassword" placeholder="Confirmar senha" type="password" />
+
+        <button class="login-button" @onclick="RegisterUser">Registrar</button>
+
+        @if (!string.IsNullOrEmpty(message))
+        {
+            <p class="@messageClass">@message</p>
+        }
+
+        <div class="register-text">
+            Já tem uma conta? <a href="/login">Entrar</a>
+        </div>
+    </div>
+</div>
+
+@code {
+    private RegisterRequest request = new();
+    private string message = string.Empty;
+    private string messageClass = string.Empty;
+
+    private async Task RegisterUser()
+    {
+        var success = await AuthService.RegisterAsync(request);
+
+        if (success)
+        {
+            message = "Conta criada com sucesso! Faça login para continuar.";
+            messageClass = "success-message";
+        }
+        else
+        {
+            message = "Erro ao criar conta. Verifique os dados e tente novamente.";
+            messageClass = "error-message";
+        }
+    }
+}

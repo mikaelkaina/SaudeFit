@@ -1,0 +1,142 @@
+﻿@page "/alimentos-sugeridos"
+@using SaudeFit.UI.Models
+@using SaudeFit.UI.Shared
+@inject HttpClient Http
+@inject NavigationManager Navigation
+@inherits SaudeFit.UI.Shared.BasePage
+
+<VoltarButton />
+
+<h3 class="section-title text-center mt-3 mb-4 fw-bold">Alimentos Sugeridos</h3>
+
+@if (isLoading)
+{
+    <div class="text-center mt-5">
+        <div class="spinner-border text-info" role="status">
+            <span class="visually-hidden">Carregando...</span>
+        </div>
+    </div>
+}
+else if (alimentos == null || alimentos.Count == 0)
+{
+    <div class="alert alert-warning text-center mt-5 w-75 mx-auto">
+        Nenhum alimento encontrado para sua categoria atual.
+    </div>
+}
+else
+{
+    <div class="alimento-container">
+        @foreach (var a in alimentos)
+        {
+            <div class="alimento-card">
+                <h4 class="alimento-nome">@a.Nome</h4>
+
+                @if (!string.IsNullOrWhiteSpace(a.Descricao))
+                {
+                    <p class="alimento-descricao">@a.Descricao</p>
+                }
+
+                <div class="alimento-info">
+                    <p><strong>Refeição:</strong> @a.Refeicao</p>
+                    <p><strong>Categoria:</strong> @a.Categoria</p>
+                    <p><strong>Calorias:</strong> @a.Calorias kcal</p>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<style>
+    /* 🔹 Container geral */
+    .alimento-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2rem;
+        padding: 10px 20px 50px 20px;
+    }
+
+    /* 🔹 Card */
+    .alimento-card {
+        background: #181818;
+        border-radius: 18px;
+        padding: 25px 22px;
+        color: #f2f2f2;
+        width: 45%;
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+        border: 1px solid rgba(0, 255, 255, 0.05);
+        transition: all 0.25s ease;
+    }
+
+        .alimento-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.25);
+            border-color: rgba(0, 255, 255, 0.2);
+        }
+
+    /* 🔹 Nome */
+    .alimento-nome {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #ddd;
+        margin-bottom: 0.5rem;
+    }
+
+    /* 🔹 Descrição */
+    .alimento-descricao {
+        color: #ccc;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    /* 🔹 Bloco de informações */
+    .alimento-info p {
+        margin: 0.4rem 0;
+        font-size: 0.95rem;
+        color: #ddd;
+    }
+
+    .alimento-info strong {
+        color: #ccc;
+    }
+
+    /* 🔹 Título principal */
+    .section-title {
+        color: aliceblue;
+        text-shadow: 0 0 8px rgba(0, 255, 255, 0.2);
+    }
+
+    /* 🔹 Responsividade */
+    @@media (max-width: 992px) {
+        .alimento-card {
+            width: 100%;
+        }
+    }
+</style>
+
+@code {
+    private List<AlimentoDto>? alimentos;
+    private bool isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var profile = await Http.GetFromJsonAsync<UserProfileDto>("api/profile");
+
+            if (profile != null && !string.IsNullOrWhiteSpace(profile.Classificacao))
+            {
+                string categoria = profile.Classificacao.Trim();
+                alimentos = await Http.GetFromJsonAsync<List<AlimentoDto>>($"api/alimentos/categoria/{categoria}");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao carregar alimentos: {ex.Message}");
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+}

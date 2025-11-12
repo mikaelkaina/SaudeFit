@@ -1,0 +1,187 @@
+﻿@page "/profile"
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Forms
+@using SaudeFit.UI.Models
+@using SaudeFit.UI.Services
+@using SaudeFit.UI.Shared
+@attribute [Authorize]
+@inject ProfileService ProfileService
+@inherits SaudeFit.UI.Shared.BasePage
+<CascadingValue Value="this">
+    <VoltarButton OnClick="GoBackCustom" />
+</CascadingValue>
+
+
+@if (isLoading)
+{
+    <p class="text-center mt-3 text-light">Carregando...</p>
+}
+else if (profile != null)
+{
+    <div class="profile-container">
+        <div class="profile-card">
+            <h3 class="profile-title text-center mb-4">Meu Perfil</h3>
+
+            <div class="info-section">
+                <p><strong>Sexo:</strong> @profile.Sexo</p>
+                <p><strong>Idade:</strong> @profile.Idade</p>
+                <p><strong>Peso:</strong> @profile.Peso kg</p>
+                <p><strong>Altura:</strong> @profile.Altura m</p>
+                <p><strong>IMC:</strong> @profile.Imc</p>
+                <p><strong>Classificação:</strong> @profile.Classificacao</p>
+            </div>
+
+            <div class="text-center mt-4">
+                <button class="edit-btn" @onclick="EditProfile">Editar Perfil</button>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="profile-container">
+        <div class="profile-card">
+            <h3 class="profile-title text-center mb-4">Criar Perfil</h3>
+
+            <EditForm Model="@newProfile" OnValidSubmit="CreateProfile">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="mb-3">
+                    <label class="form-label text-light">Sexo:</label>
+                    <InputText @bind-Value="newProfile.Sexo" class="form-control bg-dark text-light border-secondary" placeholder="M ou F" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-light">Idade:</label>
+                    <InputNumber @bind-Value="newProfile.Idade" class="form-control bg-dark text-light border-secondary" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-light">Peso (kg):</label>
+                    <InputNumber @bind-Value="newProfile.Peso" step="0.1" class="form-control bg-dark text-light border-secondary" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-light">Altura (m):</label>
+                    <InputNumber @bind-Value="newProfile.Altura" step="0.01" class="form-control bg-dark text-light border-secondary" />
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="edit-btn">Salvar Perfil</button>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<style>
+    /* 🔹 Container centralizado e responsivo */
+    .profile-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 85vh;
+        background-color: #121212;
+    }
+
+    /* 🔹 Caixa principal */
+    .profile-card {
+        background-color: #1c1c1c;
+        color: #fff;
+        border-radius: 16px;
+        padding: 40px 50px;
+        width: 90%;
+        max-width: 720px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    /* 🔹 Título principal */
+    .profile-title {
+        color: #00bcd4;
+        font-size: 1.6rem;
+        font-weight: 700;
+    }
+
+    /* 🔹 Bloco de informações */
+    .info-section {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        font-size: 1.05rem;
+        background-color: #121212;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: inset 0 0 10px rgba(0, 200, 255, 0.1);
+    }
+
+    /* 🔹 Campos de formulário */
+    .form-label {
+        font-weight: 500;
+    }
+
+    /* 🔹 Botão padrão (reutilizado do edit-profile) */
+    .edit-btn {
+        background-color: #00bcd4;
+        color: #000;
+        border: none;
+        padding: 8px 30px;
+        border-radius: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 1.05rem;
+        transition: background 0.3s, transform 0.2s;
+    }
+
+        .edit-btn:hover {
+            background-color: #0097a7;
+            transform: scale(1.05);
+            box-shadow: 0 0 12px #00bcd4;
+        }
+</style>
+
+@code {
+    private bool isLoading = true;
+    private UserProfileDto? profile;
+    private CreateProfileDto newProfile = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            profile = await ProfileService.GetProfileAsync();
+        }
+        catch
+        {
+            profile = null;
+        }
+        isLoading = false;
+    }
+
+    private async Task CreateProfile()
+    {
+        var created = await ProfileService.CreateProfileAsync(newProfile);
+        if (created)
+        {
+            await JS.InvokeVoidAsync("alert", "Perfil criado com sucesso!");
+            profile = await ProfileService.GetProfileAsync();
+            StateHasChanged();
+        }
+        else
+        {
+            await JS.InvokeVoidAsync("alert", "Erro ao criar perfil. Já existe um perfil cadastrado?");
+        }
+    }
+
+    private void GoBackCustom()
+    {
+        // Força sempre voltar à Dashboard, ignorando o histórico
+        Nav.NavigateTo("/dashboard", forceLoad: true);
+    }
+
+    private void EditProfile()
+    {
+        Nav.NavigateTo("/edit-profile");
+    }
+}

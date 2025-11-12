@@ -1,0 +1,33 @@
+﻿@page "/login"
+@using SaudeFit.UI.Services
+@using SaudeFit.UI.Models
+@inject IAuthService AuthService
+@inject NavigationManager Nav
+
+<div class="login-container">
+    <div class="login-box">
+        <h2>SaudeFit</h2>
+        <h3>Login</h3>
+
+        <input @bind="request.Email" placeholder="Email" class="login-input" />
+        <input @bind="request.Password" placeholder="Senha" type="password" class="login-input" />
+
+        <button @onclick="LoginUser" class="login-button">Entrar</button>
+
+        <p class="register-text">
+            Ainda não tem conta?
+            <a href="/register">Registre-se</a>
+        </p>
+    </div>
+</div>
+
+@code {
+    private LoginRequest request = new();
+
+    private async Task LoginUser()
+    {
+        var result = await AuthService.LoginAsync(request);
+        if (result != null)
+            Nav.NavigateTo("/dashboard");
+    }
+}

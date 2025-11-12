@@ -1,0 +1,60 @@
+﻿@inherits SaudeFit.UI.Shared.BasePage
+
+<button class="back-btn" @onclick="HandleClick">
+    <span class="icon">←</span>
+    <span>Voltar</span>
+</button>
+
+<style>
+    .back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: transparent;
+        color: #00bcd4;
+        border: 2px solid #00bcd4;
+        border-radius: 10px;
+        padding: 8px 18px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        margin-bottom: 25px;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 8px rgba(0, 188, 212, 0.2);
+    }
+
+        .back-btn:hover {
+            background-color: #00bcd4;
+            color: #000;
+            transform: scale(1.05);
+            box-shadow: 0 0 12px rgba(0, 188, 212, 0.5);
+        }
+
+    .icon {
+        font-weight: bold;
+        font-size: 1.1rem;
+        transform: translateY(-1px);
+    }
+</style>
+
+@code {
+    [Parameter] public EventCallback OnClick { get; set; }
+
+    [CascadingParameter] public BasePage? Parent { get; set; }
+
+    private async Task HandleClick()
+    {
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync();
+        }
+        else if (Parent != null)
+        {
+            await Parent.GoBack();
+        }
+        else
+        {
+            Nav.NavigateTo("/dashboard", forceLoad: true);
+        }
+    }
+}

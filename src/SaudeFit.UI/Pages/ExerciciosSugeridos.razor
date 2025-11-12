@@ -1,0 +1,143 @@
+﻿@page "/exercicios-sugeridos"
+@using SaudeFit.UI.Models
+@using SaudeFit.UI.Shared
+@inject HttpClient Http
+@inject NavigationManager Navigation
+@inherits SaudeFit.UI.Shared.BasePage
+
+<VoltarButton />
+
+<h3 class="section-title text-center mt-3 mb-4 fw-bold">Exercícios Sugeridos</h3>
+
+@if (isLoading)
+{
+    <div class="text-center mt-5">
+        <div class="spinner-border text-info" role="status">
+            <span class="visually-hidden">Carregando...</span>
+        </div>
+    </div>
+}
+else if (exercicios == null || exercicios.Count == 0)
+{
+    <div class="alert alert-warning text-center mt-5 w-75 mx-auto">
+        Nenhum exercício encontrado para sua classificação atual.
+    </div>
+}
+else
+{
+    <div class="exercicio-container">
+        @foreach (var e in exercicios)
+        {
+            <div class="exercicio-card">
+                <h4 class="exercicio-nome">@e.Nome</h4>
+
+                @if (!string.IsNullOrWhiteSpace(e.Descricao))
+                {
+                    <p class="exercicio-descricao">@e.Descricao</p>
+                }
+
+                <div class="exercicio-info">
+                    <p><strong>Categoria:</strong> @e.Categoria</p>
+                    <p><strong>Dificuldade:</strong> @e.NivelDificuldade</p>
+                    <p><strong>Repetições:</strong> @e.Repeticoes</p>
+                    <p><strong>Duração:</strong> @e.DuracaoMinutos min</p>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<style>
+    /* 🔹 Container geral */
+    .exercicio-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2rem;
+        padding: 10px 20px 50px 20px;
+    }
+
+    /* 🔹 Card de exercício */
+    .exercicio-card {
+        background: #181818;
+        border-radius: 18px;
+        padding: 25px 22px;
+        color: #f2f2f2;
+        width: 45%;
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+        border: 1px solid rgba(0, 255, 255, 0.05);
+        transition: all 0.25s ease;
+    }
+
+        .exercicio-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.25);
+            border-color: rgba(0, 255, 255, 0.2);
+        }
+
+    /* 🔹 Nome */
+    .exercicio-nome {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #ddd;
+        margin-bottom: 0.5rem;
+    }
+
+    /* 🔹 Descrição */
+    .exercicio-descricao {
+        color: #ccc;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    /* 🔹 Bloco de informações */
+    .exercicio-info p {
+        margin: 0.4rem 0;
+        font-size: 0.95rem;
+        color: #ddd;
+    }
+
+    .exercicio-info strong {
+        color: #ccc;
+    }
+
+    /* 🔹 Título principal */
+    .section-title {
+        color: aliceblue;
+        text-shadow: 0 0 8px rgba(0, 255, 255, 0.2);
+    }
+
+    /* 🔹 Responsividade */
+    @@media (max-width: 992px) {
+        .exercicio-card {
+            width: 100%;
+        }
+    }
+</style>
+
+@code {
+    private List<ExercicioDto>? exercicios;
+    private bool isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var profile = await Http.GetFromJsonAsync<UserProfileDto>("api/profile");
+
+            if (profile != null && !string.IsNullOrWhiteSpace(profile.Classificacao))
+            {
+                string categoria = profile.Classificacao.Trim();
+                exercicios = await Http.GetFromJsonAsync<List<ExercicioDto>>($"api/exercicio/categoria/{categoria}");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao carregar exercícios: {ex.Message}");
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+}

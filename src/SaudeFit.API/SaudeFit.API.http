@@ -1,0 +1,6 @@
+@SaudeFit.API_HostAddress = http://localhost:5232
+
+GET {{SaudeFit.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

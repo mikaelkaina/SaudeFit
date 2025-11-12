@@ -1,0 +1,63 @@
+﻿@page "/dashboard"
+@using Microsoft.AspNetCore.Authorization
+@using SaudeFit.UI.Services
+@attribute [Authorize]
+
+<div class="dashboard-container">
+    <h2>Bem-vindo ao <span>SaudeFit</span>!</h2>
+    <p>Escolha uma das opções abaixo para continuar:</p>
+
+    <div class="dashboard-grid">
+        <div class="dashboard-card" @onclick="@(() => NavigateTo("/profile"))">
+            <i class="fas fa-user"></i>
+            <h3>Meu Perfil</h3>
+            <p>Veja e edite suas informações pessoais.</p>
+        </div>
+
+        <div class="dashboard-card" @onclick="@(() => NavigateTo("/exercicios-sugeridos"))">
+            <i class="fas fa-dumbbell"></i>
+            <h3>Exercícios Sugeridos</h3>
+            <p>Descubra treinos ideais para você.</p>
+        </div>
+
+        <div class="dashboard-card" @onclick="@(() => NavigateTo("/progresso"))">
+            <i class="fas fa-chart-line"></i>
+            <h3>Meu Progresso</h3>
+            <p>Acompanhe sua evolução ao longo do tempo.</p>
+        </div>
+
+        <div class="dashboard-card" @onclick="@(() => NavigateTo("/alimentos-sugeridos"))">
+            <i class="fas fa-apple-alt"></i>
+            <h3>Nutrição</h3>
+            <p>Veja dicas e planos alimentares saudáveis.</p>
+        </div>
+
+        <div class="dashboard-card" @onclick="@(() => NavigateTo("/configuracoes"))">
+            <i class="fas fa-cog"></i>
+            <h3>Configurações</h3>
+            <p>Gerencie preferências e ajustes da sua conta.</p>
+        </div>
+
+        <div class="dashboard-card logout-card" @onclick="Logout">
+            <i class="fas fa-sign-out-alt"></i>
+            <h3>Sair</h3>
+            <p>Encerrar sessão e voltar para o login.</p>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Inject] NavigationManager Nav { get; set; }
+    [Inject] IAuthService AuthService { get; set; }
+
+    private void NavigateTo(string url)
+    {
+        Nav.NavigateTo(url);
+    }
+
+    private async Task Logout()
+    {
+        await AuthService.LogoutAsync();
+        Nav.NavigateTo("/login", true);
+    }
+}

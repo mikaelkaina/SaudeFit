@@ -1,0 +1,190 @@
+﻿@page "/edit-profile"
+@inherits SaudeFit.UI.Shared.BasePage
+@using Microsoft.AspNetCore.Components.Forms
+@using SaudeFit.UI.Models
+@using SaudeFit.UI.Services
+@using SaudeFit.UI.Shared
+@inject ProfileService ProfileService
+<VoltarButton />
+
+
+@if (isLoading)
+{
+    <p class="text-center mt-3 text-light">Carregando...</p>
+}
+else if (profile == null)
+{
+    <div class="profile-container">
+        <div class="profile-card text-center">
+
+            <h4 class="section-title mb-3 fw-bold">Editar Perfil</h4>
+            <p class="text-light">Perfil não encontrado.</p>
+            <a @onclick="GoToCreate" class="create-link">Criar novo perfil</a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="profile-container">
+        <div class="profile-card">
+
+            <h4 class="section-title text-center mb-4 fw-bold">Editar Perfil</h4>
+
+            <EditForm Model="@editModel" OnValidSubmit="Save">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="info-section">
+                    <div class="mb-3">
+                        <label class="form-label text-light">Sexo:</label>
+                        <InputText @bind-Value="editModel.Sexo" class="form-control bg-dark text-light border-secondary" placeholder="M ou F" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-light">Idade:</label>
+                        <InputNumber @bind-Value="editModel.Idade" class="form-control bg-dark text-light border-secondary" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-light">Peso (kg):</label>
+                        <InputNumber @bind-Value="editModel.Peso" step="0.1" class="form-control bg-dark text-light border-secondary" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-light">Altura (m):</label>
+                        <InputNumber @bind-Value="editModel.Altura" step="0.01" class="form-control bg-dark text-light border-secondary" />
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="edit-btn">Salvar Alterações</button>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<style>
+    .profile-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 85vh;
+        background-color: #121212;
+    }
+
+    .profile-card {
+        background-color: #1c1c1c;
+        color: #fff;
+        border-radius: 16px;
+        padding: 40px 50px;
+        width: 90%;
+        max-width: 720px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        position: relative;
+    }
+
+    .section-title {
+        color: #00bcd4;
+        font-size: 1.3rem;
+    }
+
+    .info-section {
+        background-color: #121212;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: inset 0 0 10px rgba(0, 200, 255, 0.1);
+    }
+
+    .form-label {
+        font-weight: 500;
+    }
+
+    .edit-btn {
+        background-color: #00bcd4;
+        color: #000;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 1.05rem;
+        transition: background 0.3s, transform 0.2s;
+    }
+
+        .edit-btn:hover {
+            background-color: #0097a7;
+            transform: scale(1.05);
+            box-shadow: 0 0 12px #00bcd4;
+        }
+
+    .create-link {
+        color: #00bcd4;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+        .create-link:hover {
+            text-decoration: underline;
+        }
+
+    /* 🔹 Botão de voltar */
+    .back-btn {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background: transparent;
+        color: #00bcd4;
+        border: none;
+        font-size: 1.2rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: color 0.3s, transform 0.2s;
+    }
+
+        .back-btn:hover {
+            color: #0097a7;
+            transform: scale(1.1);
+        }
+</style>
+
+@code {
+    private bool isLoading = true;
+    private UserProfileDto? profile;
+    private CreateProfileDto editModel = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        profile = await ProfileService.GetProfileAsync();
+        if (profile != null)
+        {
+            editModel.Sexo = profile.Sexo;
+            editModel.Idade = profile.Idade;
+            editModel.Peso = profile.Peso;
+            editModel.Altura = profile.Altura;
+        }
+        isLoading = false;
+    }
+
+    private async Task Save()
+    {
+        var updated = await ProfileService.UpdateProfileAsync(editModel);
+        if (updated != null)
+        {
+            await JS.InvokeVoidAsync("alert", "Perfil atualizado com sucesso!");
+            profile = updated;
+            Nav.NavigateTo("/profile", forceLoad: false);
+        }
+        else
+        {
+            await JS.InvokeVoidAsync("alert", "Erro ao atualizar perfil.");
+        }
+    }
+
+    private void GoToCreate()
+    {
+        Nav.NavigateTo("/profile");
+    }
+}
