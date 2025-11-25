@@ -25,25 +25,25 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<Exercicio>().HasData(
-            // 🟢 Abaixo do peso
+            // Abaixo do peso
             new Exercicio { Id = 1, Nome = "Caminhada leve", Descricao = "Caminhada de 20 minutos para ganho de resistência", NivelDificuldade = "Leve", Categoria = "Abaixo do peso", Repeticoes = 1, DuracaoMinutos = 20 },
             new Exercicio { Id = 2, Nome = "Alongamento completo", Descricao = "Série de alongamentos diários", NivelDificuldade = "Leve", Categoria = "Abaixo do peso", Repeticoes = 1, DuracaoMinutos = 15 },
             new Exercicio { Id = 9, Nome = "Treino de postura", Descricao = "Exercícios focados em alinhamento corporal e equilíbrio", NivelDificuldade = "Leve", Categoria = "Abaixo do peso", Repeticoes = 2, DuracaoMinutos = 10 },
             new Exercicio { Id = 10, Nome = "Yoga básica", Descricao = "Sequência leve para fortalecimento e relaxamento", NivelDificuldade = "Leve", Categoria = "Abaixo do peso", Repeticoes = 1, DuracaoMinutos = 25 },
 
-            // 🟢 Peso normal
+            // Peso normal
             new Exercicio { Id = 3, Nome = "Corrida leve", Descricao = "Corrida de 30 minutos", NivelDificuldade = "Moderado", Categoria = "Peso normal", Repeticoes = 1, DuracaoMinutos = 30 },
             new Exercicio { Id = 4, Nome = "Treino funcional", Descricao = "Série com agachamento, prancha e flexão", NivelDificuldade = "Moderado", Categoria = "Peso normal", Repeticoes = 3, DuracaoMinutos = 25 },
             new Exercicio { Id = 11, Nome = "Circuito aeróbico", Descricao = "Sequência de polichinelos, corrida no lugar e prancha curta", NivelDificuldade = "Moderado", Categoria = "Peso normal", Repeticoes = 2, DuracaoMinutos = 20 },
             new Exercicio { Id = 12, Nome = "Treino de resistência", Descricao = "Série alternada com elásticos e abdominais", NivelDificuldade = "Moderado", Categoria = "Peso normal", Repeticoes = 3, DuracaoMinutos = 30 },
 
-            // 🟢 Sobrepeso
+            // Sobrepeso
             new Exercicio { Id = 5, Nome = "Bicicleta ergométrica", Descricao = "Cardio leve para queima de gordura", NivelDificuldade = "Moderado", Categoria = "Sobrepeso", Repeticoes = 1, DuracaoMinutos = 25 },
             new Exercicio { Id = 6, Nome = "Agachamento com apoio", Descricao = "Exercício controlado para pernas", NivelDificuldade = "Moderado", Categoria = "Sobrepeso", Repeticoes = 2, DuracaoMinutos = 15 },
             new Exercicio { Id = 13, Nome = "Caminhada inclinada", Descricao = "Exercício de esteira com leve inclinação para resistência", NivelDificuldade = "Moderado", Categoria = "Sobrepeso", Repeticoes = 1, DuracaoMinutos = 20 },
             new Exercicio { Id = 14, Nome = "Treino leve com elástico", Descricao = "Série para tonificar braços e costas", NivelDificuldade = "Moderado", Categoria = "Sobrepeso", Repeticoes = 2, DuracaoMinutos = 15 },
 
-            // 🟢 Obesidade
+            // Obesidade
             new Exercicio { Id = 7, Nome = "Caminhada aquática", Descricao = "Exercício de baixo impacto", NivelDificuldade = "Leve", Categoria = "Obesidade", Repeticoes = 1, DuracaoMinutos = 20 },
             new Exercicio { Id = 8, Nome = "Exercícios respiratórios", Descricao = "Série para melhorar a capacidade pulmonar", NivelDificuldade = "Leve", Categoria = "Obesidade", Repeticoes = 1, DuracaoMinutos = 10 },
             new Exercicio { Id = 15, Nome = "Hidroginástica leve", Descricao = "Movimentos na água para estimular a circulação", NivelDificuldade = "Leve", Categoria = "Obesidade", Repeticoes = 1, DuracaoMinutos = 25 },

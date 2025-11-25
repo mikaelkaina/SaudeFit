@@ -15,7 +15,6 @@ builder.Services.AddScoped<ProfileService>();
 
 builder.Services.AddScoped<AuthHeaderHandler>();
 
-// HTTP Client principal para API
 builder.Services.AddHttpClient("API", client =>
 {
     client.BaseAddress = new Uri(builder.Configuration["ApiBaseUrl"] ?? "https://localhost:7293/");

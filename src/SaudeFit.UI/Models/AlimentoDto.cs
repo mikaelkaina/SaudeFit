@@ -6,6 +6,6 @@ public class AlimentoDto
     public string? Nome { get; set; }
     public string? Descricao { get; set; }
     public string? Categoria { get; set; }
-    public string? Refeicao { get; set; } // Café da manhã, Almoço, etc.
+    public string? Refeicao { get; set; }
     public int Calorias { get; set; }
 }

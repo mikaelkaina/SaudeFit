@@ -1,6 +1,5 @@
 ﻿using SaudeFit.UI.Models;
 using System.Net.Http.Json;
-using static System.Net.WebRequestMethods;
 
 namespace SaudeFit.UI.Services;
 

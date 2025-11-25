@@ -1,6 +1,4 @@
-﻿
-
-namespace SaudeFit.Domain.Entities;
+﻿namespace SaudeFit.Domain.Entities;
 
 public class Alimento
 {

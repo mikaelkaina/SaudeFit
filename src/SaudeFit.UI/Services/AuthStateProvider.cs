@@ -8,7 +8,7 @@ namespace SaudeFit.UI.Services;
 public class AuthStateProvider : AuthenticationStateProvider
 {
     private readonly IJSRuntime _js;
-    private const string TokenKey = "token"; // Consistência com AuthHeaderHandler e AuthService
+    private const string TokenKey = "token";
 
     public AuthStateProvider(IJSRuntime js)
     {
