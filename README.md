@@ -1,5 +1,3 @@
-Orgulhoso em compartilhar meu projeto pessoal em andamento - SaudeFit, uma aplicação web full-stack criada com API Web do ASPNET CORE e Blazor WebAssembly (.NET 9). O foco foi aplicar boas práticas de engenharia de software — especialmente Clean Architecture — e transformar regras de negócio reais em funcionalidades úteis e testáveis.
-
 O que o SaudeFit faz:
 
 Gestão de Perfil do Usuário — criação e edição de perfil com altura, peso e idade.
