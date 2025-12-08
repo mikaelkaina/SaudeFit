@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SaudeFit.Domain\SaudeFit.Domain.csproj" />
-    <ProjectReference Include="..\SaudeFit.Infrastructure\SaudeFit.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

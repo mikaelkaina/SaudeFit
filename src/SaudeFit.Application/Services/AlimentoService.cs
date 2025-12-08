@@ -1,45 +1,42 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SaudeFit.Application.DTOs;
+﻿using SaudeFit.Application.DTOs;
 using SaudeFit.Application.Interfaces;
-using SaudeFit.Infrastructure.Data;
 
 namespace SaudeFit.Application.Services;
 
 public class AlimentoService : IAlimentoService
 {
-    private readonly ApplicationDbContext _context;
+    private readonly IAlimentoRepository _repository;
 
-    public AlimentoService(ApplicationDbContext context)
+    public AlimentoService(IAlimentoRepository repository)
     {
-        _context = context;
-    }
-
-    public async Task<IEnumerable<AlimentoDto>> GetAlimentosByCategoriaAsync(string categoria)
-    {
-        return await _context.Alimentos
-            .Where(a => a.Categoria == categoria)
-            .Select(a => new AlimentoDto
-            {
-                Nome = a.Nome,
-                Refeicao = a.Refeicao,
-                Descricao = a.Descricao,
-                Categoria = a.Categoria,
-                Calorias = a.Calorias
-            })
-            .ToListAsync();
+        _repository = repository;
     }
 
     public async Task<IEnumerable<AlimentoDto>> GetTodosAsync()
     {
-        return await _context.Alimentos
-            .Select(a => new AlimentoDto
-            {
-                Nome = a.Nome,
-                Refeicao = a.Refeicao,
-                Descricao = a.Descricao,
-                Categoria = a.Categoria,
-                Calorias = a.Calorias
-            })
-            .ToListAsync();
+        var alimentos = await _repository.GetTodosAsync();
+
+        return alimentos.Select(a => new AlimentoDto
+        {
+            Nome = a.Nome,
+            Refeicao = a.Refeicao,
+            Descricao = a.Descricao,
+            Categoria = a.Categoria,
+            Calorias = a.Calorias
+        });
+    }
+
+    public async Task<IEnumerable<AlimentoDto>> GetAlimentosByCategoriaAsync(string categoria)
+    {
+        var alimentos = await _repository.GetByCategoriaAsync(categoria);
+
+        return alimentos.Select(a => new AlimentoDto
+        {
+            Nome = a.Nome,
+            Refeicao = a.Refeicao,
+            Descricao = a.Descricao,
+            Categoria = a.Categoria,
+            Calorias = a.Calorias
+        });
     }
 }

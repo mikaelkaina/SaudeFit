@@ -2,32 +2,26 @@
 using SaudeFit.Application.DTOs;
 using SaudeFit.Application.Interfaces;
 using SaudeFit.Domain.Entities;
-using SaudeFit.Infrastructure.Data;
 
 namespace SaudeFit.Application.Services;
 
 public class ProfileService : IProfileService
 {
-    private readonly ApplicationDbContext _context;
+    private readonly IProfileRepository _repository;
 
-    public ProfileService(ApplicationDbContext context)
+    public ProfileService(IProfileRepository repository)
     {
-        _context = context;
+        _repository = repository;
     }
 
     public async Task<UserProfileDto?> CreateProfileAsync(string userId, CreateProfileDto dto)
     {
-        var existing = await _context.UserProfiles.FirstOrDefaultAsync(p => p.UserId == userId);
+        var existing = await _repository.GetByUserIdAsync(userId);
         if (existing != null) return null;
 
         double imc = dto.Peso / (dto.Altura * dto.Altura);
-        string classificacao = imc switch
-        {
-            < 18.5 => "Abaixo do peso",
-            >= 18.5 and < 24.9 => "Peso normal",
-            >= 25 and < 29.9 => "Sobrepeso",
-            _ => "Obesidade"
-        };
+
+        string classificacao = ClassificarImc(imc);
 
         var profile = new UserProfile
         {
@@ -41,39 +35,20 @@ public class ProfileService : IProfileService
             Classificacao = classificacao
         };
 
-        _context.UserProfiles.Add(profile);
-        await _context.SaveChangesAsync();
+        await _repository.AddAsync(profile);
 
-        return new UserProfileDto
-        {
-            Sexo = profile.Sexo,
-            Idade = profile.Idade,
-            Peso = profile.Peso,
-            Altura = profile.Altura,
-            Imc = profile.Imc,
-            Classificacao = profile.Classificacao
-        };
+        return MapToDto(profile);
     }
 
     public async Task<UserProfileDto?> GetProfileByUserAsync(string userId)
     {
-        var profile = await _context.UserProfiles.FirstOrDefaultAsync(p => p.UserId == userId);
-        if (profile == null) return null;
-
-        return new UserProfileDto
-        {
-            Sexo = profile.Sexo,
-            Idade = profile.Idade,
-            Peso = profile.Peso,
-            Altura = profile.Altura,
-            Imc = profile.Imc,
-            Classificacao = profile.Classificacao
-        };
+        var profile = await _repository.GetByUserIdAsync(userId);
+        return profile == null ? null : MapToDto(profile);
     }
 
     public async Task<UserProfileDto?> UpdateProfileAsync(string userId, CreateProfileDto dto)
     {
-        var profile = await _context.UserProfiles.FirstOrDefaultAsync(p => p.UserId == userId);
+        var profile = await _repository.GetByUserIdAsync(userId);
         if (profile == null) return null;
 
         profile.Sexo = dto.Sexo;
@@ -83,17 +58,30 @@ public class ProfileService : IProfileService
 
         double imc = profile.Peso / (profile.Altura * profile.Altura);
         profile.Imc = Math.Round(imc, 2);
-        profile.Classificacao = imc switch
+        profile.Classificacao = ClassificarImc(imc);
+
+        await _repository.UpdateAsync(profile);
+
+        return MapToDto(profile);
+    }
+
+    // ------------------------
+    // Métodos auxiliares
+    // ------------------------
+
+    private static string ClassificarImc(double imc)
+    {
+        return imc switch
         {
             < 18.5 => "Abaixo do peso",
             >= 18.5 and < 24.9 => "Peso normal",
             >= 25 and < 29.9 => "Sobrepeso",
             _ => "Obesidade"
         };
+    }
 
-        _context.UserProfiles.Update(profile);
-        await _context.SaveChangesAsync();
-
+    private static UserProfileDto MapToDto(UserProfile profile)
+    {
         return new UserProfileDto
         {
             Sexo = profile.Sexo,

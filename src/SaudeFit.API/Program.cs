@@ -1,6 +1,7 @@
 ﻿using SaudeFit.Application.Interfaces;
 using SaudeFit.Application.Services;
 using SaudeFit.Infrastructure;
+using SaudeFit.Infrastructure.Repositories;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,10 +22,15 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IProfileService, ProfileService>();
-builder.Services.AddScoped<IExercicioService, ExercicioService>();
-builder.Services.AddScoped<IAlimentoService, AlimentoService>();
 
+builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
+builder.Services.AddScoped<IProfileService, ProfileService>();
+
+builder.Services.AddScoped<IExercicioService, ExercicioService>();
+builder.Services.AddScoped<IExercicioRepository, ExercicioRepository>();
+
+builder.Services.AddScoped<IAlimentoRepository, AlimentoRepository>();
+builder.Services.AddScoped<IAlimentoService, AlimentoService>();
 
 var app = builder.Build();
 
