@@ -46,6 +46,14 @@ app.UseHttpsRedirection();
 app.UseCors("Meucors");
 
 app.UseAuthorization();
+
+
+app.UseBlazorFrameworkFiles();
+app.UseStaticFiles();
+
+app.MapFallbackToFile("index.html");
+
+
 app.MapControllers();
 
 app.Run();
