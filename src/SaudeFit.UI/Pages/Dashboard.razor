@@ -47,8 +47,8 @@
 </div>
 
 @code {
-    [Inject] NavigationManager Nav { get; set; }
-    [Inject] IAuthService AuthService { get; set; }
+    [Inject] NavigationManager Nav { get; set; } = null!;
+    [Inject] IAuthService AuthService { get; set; } = null!;
 
     private void NavigateTo(string url)
     {

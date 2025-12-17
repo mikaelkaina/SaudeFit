@@ -13,7 +13,7 @@ public class UserProfile
     public double Imc { get; private set; }
     public string Classificacao { get; private set; } = string.Empty;
 
-    private UserProfile() { } // EF Core
+    private UserProfile() { }
 
     public UserProfile(string userId, string sexo, int idade, double peso, double altura)
     {
