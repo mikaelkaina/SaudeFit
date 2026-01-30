@@ -20,7 +20,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Alimento> Alimentos { get; set; }
 
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+   /* protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
@@ -75,6 +75,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
         new Alimento { Id = 15, Nome = "Salada de frutas com aveia", Refeicao = "Lanche da tarde", Descricao = "Fonte leve de energia e fibras naturais", Categoria = "Obesidade", Calorias = 160 },
         new Alimento { Id = 16, Nome = "Sopa de abóbora com frango desfiado", Refeicao = "Jantar", Descricao = "Jantar leve, nutritivo e de fácil digestão", Categoria = "Obesidade", Calorias = 220 }
         );
-    }
+    } */
 }
 
