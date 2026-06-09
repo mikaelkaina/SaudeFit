@@ -48,7 +48,7 @@
 
 @code {
     [Inject] NavigationManager Nav { get; set; } = null!;
-    [Inject] IAuthService AuthService { get; set; } = null!;
+    [Inject] IAuthServiceUI AuthService { get; set; } = null!;
 
     private void NavigateTo(string url)
     {

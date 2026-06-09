@@ -3,7 +3,7 @@ using System.Net.Http.Json;
 
 namespace SaudeFit.UI.Services;
 
-public class AuthService : IAuthService
+public class AuthService : IAuthServiceUI
 {
     private readonly HttpClient _httpClient;
     private readonly AuthStateProvider _authStateProvider;

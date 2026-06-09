@@ -2,7 +2,7 @@
 
 namespace SaudeFit.UI.Services;
 
-public interface IAuthService
+public interface IAuthServiceUI
 {
     Task<AuthResponse?> LoginAsync(LoginRequest request);
     Task<bool> RegisterAsync(RegisterRequest request);

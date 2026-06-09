@@ -42,6 +42,8 @@ public static class DependencyInjection
                 IssuerSigningKey = new SymmetricSecurityKey(key)
             };
         });
+        
+        
 
         return services;
     }

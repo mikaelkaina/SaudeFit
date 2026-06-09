@@ -10,7 +10,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped<AuthStateProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider>(sp => sp.GetRequiredService<AuthStateProvider>());
-builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IAuthServiceUI, AuthService>();
 builder.Services.AddScoped<ProfileService>();
 
 builder.Services.AddScoped<AuthHeaderHandler>();

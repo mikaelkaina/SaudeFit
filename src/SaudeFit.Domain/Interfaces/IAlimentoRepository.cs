@@ -1,6 +1,6 @@
 ﻿using SaudeFit.Domain.Entities;
 
-namespace SaudeFit.Application.Interfaces;
+namespace SaudeFit.Domain.Interfaces;
 
 public interface IAlimentoRepository
 {

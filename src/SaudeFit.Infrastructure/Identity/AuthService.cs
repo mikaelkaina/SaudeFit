@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using SaudeFit.Application.DTOs;
-using SaudeFit.Application.Interfaces;
-using SaudeFit.Domain.Entities;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using SaudeFit.Domain.Entities;
+using SaudeFit.Infrastructure.Identity.DTOs;
+using SaudeFit.Infrastructure.Identity.Interfaces;
 
-namespace SaudeFit.Application.Services;
+namespace SaudeFit.Infrastructure.Identity;
 
 public class AuthService : IAuthService
 {

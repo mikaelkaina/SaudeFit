@@ -1,6 +1,7 @@
 ﻿using SaudeFit.Application.DTOs;
 using SaudeFit.Application.Interfaces;
 using SaudeFit.Domain.Entities;
+using SaudeFit.Domain.Interfaces;
 
 namespace SaudeFit.Application.Services;
 

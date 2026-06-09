@@ -1,6 +1,7 @@
 ﻿using SaudeFit.Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using SaudeFit.Domain.Entities;
+using SaudeFit.Domain.Interfaces;
 using SaudeFit.Infrastructure.Data;
 
 namespace SaudeFit.Infrastructure.Repositories;

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SaudeFit.Application.Interfaces;
+using SaudeFit.Domain.Interfaces;
 
 namespace SaudeFit.API.Controllers;
 
