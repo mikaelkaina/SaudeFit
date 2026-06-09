@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace SaudeFit.Domain.Entities;
+namespace SaudeFit.Infrastructure.Identity;
 
 public class ApplicationUser : IdentityUser { }

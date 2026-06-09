@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using SaudeFit.Domain.Entities;
 using SaudeFit.Infrastructure.Data;
 using System.Text;
+using SaudeFit.Infrastructure.Identity;
 
 namespace SaudeFit.Infrastructure;
 
