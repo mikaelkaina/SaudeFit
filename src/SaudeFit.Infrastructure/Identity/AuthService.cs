@@ -4,9 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using SaudeFit.Domain.Entities;
 using SaudeFit.Infrastructure.Identity.DTOs;
-using SaudeFit.Infrastructure.Identity.Interfaces;
 
 namespace SaudeFit.Infrastructure.Identity;
 

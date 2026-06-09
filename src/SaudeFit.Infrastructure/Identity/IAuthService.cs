@@ -1,6 +1,6 @@
 ﻿using SaudeFit.Infrastructure.Identity.DTOs;
 
-namespace SaudeFit.Infrastructure.Identity.Interfaces;
+namespace SaudeFit.Infrastructure.Identity;
 
 public interface IAuthService
 {
