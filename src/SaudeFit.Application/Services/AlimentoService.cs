@@ -1,5 +1,6 @@
-﻿using SaudeFit.Application.DTOs;
-using SaudeFit.Application.Interfaces;
+﻿using SaudeFit.Application.Interfaces;
+using SaudeFit.Domain.Entities;
+using SaudeFit.Domain.Interfaces;
 
 namespace SaudeFit.Application.Services;
 
@@ -12,11 +13,11 @@ public class AlimentoService : IAlimentoService
         _repository = repository;
     }
 
-    public async Task<IEnumerable<AlimentoDto>> GetTodosAsync()
+    public async Task<IEnumerable<Alimento>> GetTodosAsync()
     {
         var alimentos = await _repository.GetTodosAsync();
 
-        return alimentos.Select(a => new AlimentoDto
+        return alimentos.Select(a => new Alimento()
         {
             Nome = a.Nome,
             Refeicao = a.Refeicao,
@@ -26,11 +27,11 @@ public class AlimentoService : IAlimentoService
         });
     }
 
-    public async Task<IEnumerable<AlimentoDto>> GetAlimentosByCategoriaAsync(string categoria)
+    public async Task<IEnumerable<Alimento>> GetAlimentosByCategoriaAsync(string categoria)
     {
         var alimentos = await _repository.GetByCategoriaAsync(categoria);
 
-        return alimentos.Select(a => new AlimentoDto
+        return alimentos.Select(a => new Alimento()
         {
             Nome = a.Nome,
             Refeicao = a.Refeicao,

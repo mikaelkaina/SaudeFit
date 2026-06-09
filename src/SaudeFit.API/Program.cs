@@ -1,6 +1,9 @@
 ﻿using SaudeFit.Application.Interfaces;
 using SaudeFit.Application.Services;
+using SaudeFit.Domain.Interfaces;
 using SaudeFit.Infrastructure;
+using SaudeFit.Infrastructure.Identity;
+using SaudeFit.Infrastructure.Identity.Interfaces;
 using SaudeFit.Infrastructure.Repositories;
 using Scalar.AspNetCore;
 
