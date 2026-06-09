@@ -14,5 +14,10 @@
   <ItemGroup>
     <ProjectReference Include="..\SaudeFit.Domain\SaudeFit.Domain.csproj" />
   </ItemGroup>
+	
+  <ItemGroup>
+    <Folder Include="Features\Exercicios\" />
+    <Folder Include="Features\Perfil\" />
+  </ItemGroup>
 
 </Project>
