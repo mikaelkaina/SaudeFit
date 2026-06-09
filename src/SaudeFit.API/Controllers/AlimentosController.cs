@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SaudeFit.Application.Features.Food.Queries.GetAllFood;
 using SaudeFit.Application.Features.Food.Queries.GetByCategory;
-using SaudeFit.Application.Features.Food.Queries.GetFood;
 
 namespace SaudeFit.API.Controllers;
 
@@ -9,18 +9,18 @@ namespace SaudeFit.API.Controllers;
 public class AlimentosController : ControllerBase
 {
     private readonly IGetFoodByCategory _getFoodByCategory;
-    private readonly IGetFood _getFood;
+    private readonly IGetAllFood _getAllFood;
 
-    public AlimentosController(IGetFoodByCategory getFoodByCategory, IGetFood getFood)
+    public AlimentosController(IGetFoodByCategory getFoodByCategory, IGetAllFood getAllFood)
     {
         _getFoodByCategory = getFoodByCategory;
-        _getFood = getFood;
+        _getAllFood = getAllFood;
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var alimentos = await _getFood.Execute();
+        var alimentos = await _getAllFood.Handle();
         return Ok(alimentos);
     }
 
