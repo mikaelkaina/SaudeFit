@@ -4,9 +4,9 @@ namespace SaudeFit.Application.Features.Foods.Queries.GetAll;
 
 public class GetAllFoodHandler : IGetAllFoodHandler
 {
-    private readonly IAlimentoRepository _repository;
+    private readonly IFoodRepository _repository;
 
-    public GetAllFoodHandler(IAlimentoRepository repository)
+    public GetAllFoodHandler(IFoodRepository repository)
     {
         _repository = repository;
     }
@@ -15,6 +15,6 @@ public class GetAllFoodHandler : IGetAllFoodHandler
     {
         var foods = await _repository.GetTodosAsync();
 
-        return foods.Select(a => a.ToResponse()).ToList();
+        return foods.Select(f => f.ToResponse()).ToList();
     }
 }

@@ -27,7 +27,7 @@ public class FoodsController : ControllerBase
     [HttpGet("categoria/{categoria}")]
     public async Task<IActionResult> GetByCategoria(string categoria)
     {
-        var foods = await  _getFoodByCategoryHandler.Execute(categoria);
+        var foods = await  _getFoodByCategoryHandler.Handle(categoria);
         if (!foods.Any())
             return NotFound($"Nenhum exercício encontrado para a categoria '{categoria}'.");
         return Ok(foods);

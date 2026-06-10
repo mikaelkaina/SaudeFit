@@ -27,13 +27,12 @@ builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddScoped<IAuthService, AuthService>();
 
-builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
+
 builder.Services.AddScoped<IProfileService, ProfileService>();
 
-builder.Services.AddScoped<IExercicioService, ExercicioService>();
-builder.Services.AddScoped<IExercicioRepository, ExerciseRepository>();
-
-builder.Services.AddScoped<IAlimentoRepository, FoodRepository>();
+builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
+builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
+builder.Services.AddScoped<IFoodRepository, FoodRepository>();
 
 var app = builder.Build();
 

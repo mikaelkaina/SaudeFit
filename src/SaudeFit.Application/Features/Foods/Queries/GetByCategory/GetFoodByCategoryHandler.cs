@@ -4,24 +4,16 @@ namespace SaudeFit.Application.Features.Foods.Queries.GetByCategory;
 
 public class GetFoodByCategoryHandler : IGetFoodByCategoryHandler
 {
-    private readonly IAlimentoRepository _repository;
+    private readonly IFoodRepository _repository;
 
-    public GetFoodByCategoryHandler(IAlimentoRepository repository)
+    public GetFoodByCategoryHandler(IFoodRepository repository)
     {
         _repository = repository;
     }
     
-    public async Task<IEnumerable<Domain.Entities.Food>> Execute(string categoria)
+    public async Task<IEnumerable<GetFoodByCategoryResponse>> Handle(string categoria)
     {
-        var alimentos = await _repository.GetByCategoriaAsync(categoria);
-
-        return alimentos.Select(a => new Domain.Entities.Food()
-        {
-            Name = a.Name,
-            Snack = a.Snack,
-            Description = a.Description,
-            Category = a.Category,
-            Calories = a.Calories
-        });
+        var foods = await _repository.GetByCategoriaAsync(categoria);
+        return foods.Select(a => a.ToResponse()).ToList();
     }
 }

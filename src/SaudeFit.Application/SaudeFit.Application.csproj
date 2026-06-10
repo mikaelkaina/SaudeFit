@@ -16,8 +16,11 @@
   </ItemGroup>
 	
   <ItemGroup>
-    <Folder Include="Features\Exercises\Queries\GetByCategory\" />
     <Folder Include="Features\Perfil\" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <Compile Remove="Services\ExercicioService.cs" />
   </ItemGroup>
 
 </Project>

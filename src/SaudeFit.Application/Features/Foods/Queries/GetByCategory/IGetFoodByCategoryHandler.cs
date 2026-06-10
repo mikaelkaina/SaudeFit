@@ -2,5 +2,5 @@
 
 public interface IGetFoodByCategoryHandler
 {
-    Task<IEnumerable<Domain.Entities.Food>> Execute(string categoria);
+    Task<IEnumerable<GetFoodByCategoryResponse>> Handle(string categoria);
 }
