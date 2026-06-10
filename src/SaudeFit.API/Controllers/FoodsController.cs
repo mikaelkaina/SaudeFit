@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SaudeFit.Application.Features.Food.Queries.GetAllFood;
-using SaudeFit.Application.Features.Food.Queries.GetByCategory;
+using SaudeFit.Application.Features.Foods.Queries.GetAll;
+using SaudeFit.Application.Features.Foods.Queries.GetByCategory;
 
 namespace SaudeFit.API.Controllers;
 

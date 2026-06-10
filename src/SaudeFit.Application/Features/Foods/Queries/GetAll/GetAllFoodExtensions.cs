@@ -1,4 +1,4 @@
-﻿namespace SaudeFit.Application.Features.Food.Queries.GetAllFood;
+﻿namespace SaudeFit.Application.Features.Foods.Queries.GetAll;
 
 public static class GetAllFoodExtensions
 {

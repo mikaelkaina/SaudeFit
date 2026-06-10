@@ -16,7 +16,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 
     public DbSet<UserProfile> UserProfiles { get; set; } = null!;
 
-    public DbSet<Exercicio> Exercicios { get; set; } = default!;
+    public DbSet<Exercise> Exercises { get; set; } = default!;
 
     public DbSet<Food> Foods { get; set; }
 }
