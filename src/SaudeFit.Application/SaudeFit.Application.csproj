@@ -16,7 +16,8 @@
   </ItemGroup>
 	
   <ItemGroup>
-    <Folder Include="Features\Perfil\" />
+    <Folder Include="Features\UserProfile\Commands\" />
+    <Folder Include="Features\UserProfile\Queries\" />
   </ItemGroup>
 	
   <ItemGroup>

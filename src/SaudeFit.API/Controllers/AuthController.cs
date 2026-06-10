@@ -1,7 +1,4 @@
-﻿using Azure;
-using Microsoft.AspNetCore.Mvc;
-using SaudeFit.Application.DTOs;
-using SaudeFit.Application.Interfaces;
+﻿using Microsoft.AspNetCore.Mvc;
 using SaudeFit.Infrastructure.Identity;
 using SaudeFit.Infrastructure.Identity.DTOs;
 
