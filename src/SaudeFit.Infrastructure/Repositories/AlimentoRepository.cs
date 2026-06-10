@@ -12,15 +12,15 @@ public class AlimentoRepository : IAlimentoRepository
     {
         _context = context;
     }
-    public async Task<IEnumerable<Alimento>> GetByCategoriaAsync(string categoria)
+    public async Task<IEnumerable<Food>> GetByCategoriaAsync(string categoria)
     {
-        return await _context.Alimentos
-            .Where(a => a.Categoria == categoria)
+        return await _context.Foods
+            .Where(a => a.Category == categoria)
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<Alimento>> GetTodosAsync()
+    public async Task<IEnumerable<Food>> GetTodosAsync()
     {
-        return await _context.Alimentos.ToListAsync();
+        return await _context.Foods.ToListAsync();
     }
 }

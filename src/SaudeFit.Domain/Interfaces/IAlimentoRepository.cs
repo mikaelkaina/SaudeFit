@@ -4,6 +4,6 @@ namespace SaudeFit.Domain.Interfaces;
 
 public interface IAlimentoRepository
 {
-    Task<IEnumerable<Alimento>> GetTodosAsync();
-    Task<IEnumerable<Alimento>> GetByCategoriaAsync(string categoria);
+    Task<IEnumerable<Food>> GetTodosAsync();
+    Task<IEnumerable<Food>> GetByCategoriaAsync(string categoria);
 }

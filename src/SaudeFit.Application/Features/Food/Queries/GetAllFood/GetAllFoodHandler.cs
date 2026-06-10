@@ -13,8 +13,8 @@ public class GetAllFoodHandler : IGetAllFood
 
     public async Task<IEnumerable<GetAllFoodResponse>> Handle()
     {
-        var alimentos = await _repository.GetTodosAsync();
+        var foods = await _repository.GetTodosAsync();
 
-        return alimentos.Select(a => a.ToResponse()).ToList();
+        return foods.Select(a => a.ToResponse()).ToList();
     }
 }
