@@ -2,11 +2,11 @@
 
 namespace SaudeFit.Application.Features.Foods.Queries.GetByCategory;
 
-public class GetFoodByCategory : IGetFoodByCategory
+public class GetFoodByCategoryHandler : IGetFoodByCategoryHandler
 {
     private readonly IAlimentoRepository _repository;
 
-    public GetFoodByCategory(IAlimentoRepository repository)
+    public GetFoodByCategoryHandler(IAlimentoRepository repository)
     {
         _repository = repository;
     }

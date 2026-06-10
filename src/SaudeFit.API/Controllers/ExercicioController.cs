@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SaudeFit.Application.Features.Exercises.Queries.GetAll;
 using SaudeFit.Application.Interfaces;
 
 namespace SaudeFit.API.Controllers;
@@ -7,26 +8,26 @@ namespace SaudeFit.API.Controllers;
 [Route("api/[controller]")]
 public class ExercicioController : ControllerBase
 {
-    private readonly IExercicioService _exercicioService;
+    private readonly IGetAllExerciseHandler _getAllExerciseHandler;
 
-    public ExercicioController(IExercicioService exercicioService)
+    public ExercicioController(IGetAllExerciseHandler getAllExerciseHandler)
     {
-        _exercicioService = exercicioService;
+        _getAllExerciseHandler = getAllExerciseHandler;
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var exercicios = await _exercicioService.GetTodosAsync();
-        return Ok(exercicios);
+        var exercise = await _getAllExerciseHandler.Handle();
+        return Ok(exercise);
     }
 
     [HttpGet("categoria/{categoria}")]
     public async Task<IActionResult> GetByCategoria(string categoria)
     {
-        var exercicios = await _exercicioService.GetExerciciosPorCategoriaAsync(categoria);
-        if (!exercicios.Any())
+        var exercise = await _exercicioService.GetExerciciosPorCategoriaAsync(categoria);
+        if (!exercise.Any())
             return NotFound($"Nenhum exercício encontrado para a categoria '{categoria}'.");
-        return Ok(exercicios);
+        return Ok(exercise);
     }
 }

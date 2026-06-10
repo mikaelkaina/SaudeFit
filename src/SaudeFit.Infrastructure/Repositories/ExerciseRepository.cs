@@ -5,10 +5,10 @@ using SaudeFit.Infrastructure.Data;
 
 namespace SaudeFit.Infrastructure.Repositories;
 
-public class ExercicioRepository : IExercicioRepository
+public class ExerciseRepository : IExercicioRepository
 {
     private readonly ApplicationDbContext _context;
-    public ExercicioRepository(ApplicationDbContext context)
+    public ExerciseRepository(ApplicationDbContext context)
     {
         _context = context;
     }

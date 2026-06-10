@@ -31,9 +31,9 @@ builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
 
 builder.Services.AddScoped<IExercicioService, ExercicioService>();
-builder.Services.AddScoped<IExercicioRepository, ExercicioRepository>();
+builder.Services.AddScoped<IExercicioRepository, ExerciseRepository>();
 
-builder.Services.AddScoped<IAlimentoRepository, AlimentoRepository>();
+builder.Services.AddScoped<IAlimentoRepository, FoodRepository>();
 
 var app = builder.Build();
 

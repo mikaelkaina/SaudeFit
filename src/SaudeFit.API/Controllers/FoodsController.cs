@@ -8,26 +8,26 @@ namespace SaudeFit.API.Controllers;
 [Route("api/[controller]")]
 public class FoodsController : ControllerBase
 {
-    private readonly IGetFoodByCategory _getFoodByCategory;
-    private readonly IGetAllFood _getAllFood;
+    private readonly IGetFoodByCategoryHandler _getFoodByCategoryHandler;
+    private readonly IGetAllFoodHandler _getAllFoodHandler;
 
-    public FoodsController(IGetFoodByCategory getFoodByCategory, IGetAllFood getAllFood)
+    public FoodsController(IGetFoodByCategoryHandler getFoodByCategoryHandler, IGetAllFoodHandler getAllFoodHandler)
     {
-        _getFoodByCategory = getFoodByCategory;
-        _getAllFood = getAllFood;
+        _getFoodByCategoryHandler = getFoodByCategoryHandler;
+        _getAllFoodHandler = getAllFoodHandler;
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var foods = await _getAllFood.Handle();
+        var foods = await _getAllFoodHandler.Handle();
         return Ok(foods);
     }
 
     [HttpGet("categoria/{categoria}")]
     public async Task<IActionResult> GetByCategoria(string categoria)
     {
-        var foods = await  _getFoodByCategory.Execute(categoria);
+        var foods = await  _getFoodByCategoryHandler.Execute(categoria);
         if (!foods.Any())
             return NotFound($"Nenhum exercício encontrado para a categoria '{categoria}'.");
         return Ok(foods);
