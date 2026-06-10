@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SaudeFit.Application.Interfaces;
 using SaudeFit.Domain.Entities;
 using SaudeFit.Domain.Interfaces;
 using SaudeFit.Infrastructure.Data;
@@ -13,15 +12,15 @@ public class ExercicioRepository : IExercicioRepository
     {
         _context = context;
     }
-    public async Task<IEnumerable<Exercicio>> GetByCategoriaAsync(string categoria)
+    public async Task<IEnumerable<Exercise>> GetByCategoriaAsync(string categoria)
     {
-        return await _context.Exercicios
-            .Where(e => e.Categoria.ToLower() == categoria.ToLower())
+        return await _context.Exercises
+            .Where(e => e.Category.ToLower() == categoria.ToLower())
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<Exercicio>> GetTodosAsync()
+    public async Task<IEnumerable<Exercise>> GetTodosAsync()
     { 
-         return await _context.Exercicios.ToListAsync();
+         return await _context.Exercises.ToListAsync();
     }
 }

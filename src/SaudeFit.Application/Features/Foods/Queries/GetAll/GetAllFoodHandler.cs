@@ -1,6 +1,6 @@
 ﻿using SaudeFit.Domain.Interfaces;
 
-namespace SaudeFit.Application.Features.Food.Queries.GetAllFood;
+namespace SaudeFit.Application.Features.Foods.Queries.GetAll;
 
 public class GetAllFoodHandler : IGetAllFood
 {

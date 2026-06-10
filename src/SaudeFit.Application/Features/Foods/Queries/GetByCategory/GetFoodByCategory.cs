@@ -1,7 +1,6 @@
-﻿using SaudeFit.Domain.Entities;
-using SaudeFit.Domain.Interfaces;
+﻿using SaudeFit.Domain.Interfaces;
 
-namespace SaudeFit.Application.Features.Food.Queries.GetByCategory;
+namespace SaudeFit.Application.Features.Foods.Queries.GetByCategory;
 
 public class GetFoodByCategory : IGetFoodByCategory
 {
