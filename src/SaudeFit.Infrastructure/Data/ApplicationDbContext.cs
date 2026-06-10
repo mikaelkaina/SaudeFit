@@ -18,6 +18,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 
     public DbSet<Exercicio> Exercicios { get; set; } = default!;
 
-    public DbSet<Alimento> Alimentos { get; set; }
+    public DbSet<Food> Foods { get; set; }
 }
 

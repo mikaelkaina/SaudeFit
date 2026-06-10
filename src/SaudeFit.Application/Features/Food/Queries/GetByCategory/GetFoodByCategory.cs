@@ -12,17 +12,17 @@ public class GetFoodByCategory : IGetFoodByCategory
         _repository = repository;
     }
     
-    public async Task<IEnumerable<Alimento>> Execute(string categoria)
+    public async Task<IEnumerable<Domain.Entities.Food>> Execute(string categoria)
     {
         var alimentos = await _repository.GetByCategoriaAsync(categoria);
 
-        return alimentos.Select(a => new Alimento()
+        return alimentos.Select(a => new Domain.Entities.Food()
         {
-            Nome = a.Nome,
-            Refeicao = a.Refeicao,
-            Descricao = a.Descricao,
-            Categoria = a.Categoria,
-            Calorias = a.Calorias
+            Name = a.Name,
+            Snack = a.Snack,
+            Description = a.Description,
+            Category = a.Category,
+            Calories = a.Calories
         });
     }
 }

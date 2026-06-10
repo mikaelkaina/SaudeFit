@@ -1,6 +1,4 @@
-﻿using SaudeFit.Domain.Entities;
-
-namespace SaudeFit.Application.Features.Food.Queries.GetAllFood;
+﻿namespace SaudeFit.Application.Features.Food.Queries.GetAllFood;
 
 public interface IGetAllFood
 {
