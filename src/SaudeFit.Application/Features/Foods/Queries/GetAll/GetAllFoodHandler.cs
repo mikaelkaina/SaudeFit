@@ -2,7 +2,7 @@
 
 namespace SaudeFit.Application.Features.Foods.Queries.GetAll;
 
-public class GetAllFoodHandler : IGetAllFood
+public class GetAllFoodHandler : IGetAllFoodHandler
 {
     private readonly IAlimentoRepository _repository;
 

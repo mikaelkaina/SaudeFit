@@ -5,10 +5,10 @@ using SaudeFit.Infrastructure.Data;
 
 namespace SaudeFit.Infrastructure.Repositories;
 
-public class AlimentoRepository : IAlimentoRepository
+public class FoodRepository : IAlimentoRepository
 {
     private readonly ApplicationDbContext _context;
-    public AlimentoRepository(ApplicationDbContext context)
+    public FoodRepository(ApplicationDbContext context)
     {
         _context = context;
     }

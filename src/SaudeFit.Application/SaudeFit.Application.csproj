@@ -16,7 +16,6 @@
   </ItemGroup>
 	
   <ItemGroup>
-    <Folder Include="Features\Exercises\Queries\GetAll\" />
     <Folder Include="Features\Exercises\Queries\GetByCategory\" />
     <Folder Include="Features\Perfil\" />
   </ItemGroup>

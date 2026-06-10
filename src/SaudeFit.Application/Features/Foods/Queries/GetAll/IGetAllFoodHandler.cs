@@ -1,6 +1,6 @@
 ﻿namespace SaudeFit.Application.Features.Foods.Queries.GetAll;
 
-public interface IGetAllFood
+public interface IGetAllFoodHandler
 {
     Task<IEnumerable<GetAllFoodResponse>> Handle();
 }
