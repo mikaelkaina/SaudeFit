@@ -13,6 +13,8 @@ public static class DependencyInjection
         services.AddScoped<IGetAllFoodHandler, GetAllFoodHandler>();
 
         services.AddScoped<IGetAllExerciseHandler, GetAllExerciseHandler>();
+        services.AddScoped<IGetFoodByCategoryHandler, GetFoodByCategoryHandler>();
+        
         return services;
     }
 }

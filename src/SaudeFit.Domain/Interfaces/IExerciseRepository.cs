@@ -2,7 +2,7 @@
 
 namespace SaudeFit.Domain.Interfaces;
 
-public interface IExercicioRepository
+public interface IExerciseRepository
 {
     Task<IEnumerable<Exercise>> GetTodosAsync();
     Task<IEnumerable<Exercise>> GetByCategoriaAsync(string categoria);

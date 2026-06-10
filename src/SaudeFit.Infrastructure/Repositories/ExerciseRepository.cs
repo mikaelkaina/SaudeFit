@@ -5,7 +5,7 @@ using SaudeFit.Infrastructure.Data;
 
 namespace SaudeFit.Infrastructure.Repositories;
 
-public class ExerciseRepository : IExercicioRepository
+public class ExerciseRepository : IExerciseRepository
 {
     private readonly ApplicationDbContext _context;
     public ExerciseRepository(ApplicationDbContext context)

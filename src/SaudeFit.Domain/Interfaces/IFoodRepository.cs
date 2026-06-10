@@ -2,7 +2,7 @@
 
 namespace SaudeFit.Domain.Interfaces;
 
-public interface IAlimentoRepository
+public interface IFoodRepository
 {
     Task<IEnumerable<Food>> GetTodosAsync();
     Task<IEnumerable<Food>> GetByCategoriaAsync(string categoria);
