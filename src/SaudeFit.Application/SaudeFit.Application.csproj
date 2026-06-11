@@ -16,10 +16,6 @@
   </ItemGroup>
 	
   <ItemGroup>
-    <Folder Include="Features\UserProfile\Queries\" />
-  </ItemGroup>
-	
-  <ItemGroup>
     <Compile Remove="Services\ExercicioService.cs" />
   </ItemGroup>
 
