@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using SaudeFit.Infrastructure.Data;
 using System.Text;
+using SaudeFit.Domain.Interfaces;
 using SaudeFit.Infrastructure.Identity;
 
 namespace SaudeFit.Infrastructure;
@@ -43,7 +44,7 @@ public static class DependencyInjection
             };
         });
         
-        
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;
     }

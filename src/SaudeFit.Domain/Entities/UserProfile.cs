@@ -4,7 +4,6 @@ namespace SaudeFit.Domain.Entities;
 
 public class UserProfile
 {
-    public Guid Id { get; private set; }
     public string UserId { get; private set; } = string.Empty;
     public string Gender { get; private set; } = string.Empty;
     public int Age { get; private set; }
@@ -17,7 +16,6 @@ public class UserProfile
 
     public UserProfile(string userId, string gender, int age, double weight, double height)
     {
-        Id = Guid.NewGuid();
         UserId = userId;
 
         ValidateData(age, weight, height);
