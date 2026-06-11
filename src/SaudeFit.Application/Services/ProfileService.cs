@@ -14,24 +14,6 @@ public class ProfileService : IProfileService
         _repository = repository;
     }
 
-    public async Task<UserProfileDto?> CreateProfileAsync(string userId, CreateProfileDto dto)
-    {
-        var existing = await _repository.GetByUserIdAsync(userId);
-        if (existing != null) return null;
-
-        var profile = new UserProfile(
-            userId,
-            dto.Sexo,
-            dto.Idade,
-            dto.Peso,
-            dto.Altura
-        );
-
-        await _repository.AddAsync(profile);
-
-        return MapToDto(profile);
-    }
-
     public async Task<UserProfileDto?> GetProfileByUserAsync(string userId)
     {
         var profile = await _repository.GetByUserIdAsync(userId);
