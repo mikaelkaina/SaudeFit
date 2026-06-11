@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using SaudeFit.Application.DTOs;
 using SaudeFit.Application.Interfaces;
 using System.Security.Claims;
+using SaudeFit.Application.Features.UserProfile.Commands.Create;
+using SaudeFit.Domain.Interfaces;
 
 namespace SaudeFit.API.Controllers;
 
@@ -12,10 +14,12 @@ namespace SaudeFit.API.Controllers;
 public class ProfileController : ControllerBase
 {
     private readonly IProfileService _profileService;
+    private readonly ICreateUserProfileHandler _createUserProfileHandler;
 
-    public ProfileController(IProfileService profileService)
+    public ProfileController(IProfileService profileService, CreateUserProfileHandler createUserProfileHandler)
     {
         _profileService = profileService;
+        _createUserProfileHandler = createUserProfileHandler;
     }
 
     [HttpPost]
