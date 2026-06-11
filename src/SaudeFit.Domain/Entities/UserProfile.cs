@@ -1,4 +1,4 @@
-﻿using SaudeFit.Domain.Exceptions;
+﻿using Menso.Tools.Exceptions;
 
 namespace SaudeFit.Domain.Entities;
 
@@ -6,53 +6,63 @@ public class UserProfile
 {
     public Guid Id { get; private set; }
     public string UserId { get; private set; } = string.Empty;
-    public string Sexo { get; private set; } = string.Empty;
-    public int Idade { get; private set; }
-    public double Peso { get; private set; }
-    public double Altura { get; private set; }
-    public double Imc { get; private set; }
-    public string Classificacao { get; private set; } = string.Empty;
+    public string Gender { get; private set; } = string.Empty;
+    public int Age { get; private set; }
+    public double Weight { get; private set; }
+    public double Height { get; private set; }
+    public double Bmi { get; private set; }
+    public string Classification { get; private set; } = string.Empty;
 
     private UserProfile() { }
 
-    public UserProfile(string userId, string sexo, int idade, double peso, double altura)
+    public UserProfile(string userId, string gender, int age, double weight, double height)
     {
         Id = Guid.NewGuid();
         UserId = userId;
 
-        AtualizarDados(sexo, idade, peso, altura);
+        ValidateData(age, weight, height);
+
+        Gender = gender;
+        Age = age;
+        Weight = weight;
+        Height = height;
+
+        CalculateBmi();
     }
 
-    public void AtualizarDados(string sexo, int idade, double peso, double altura)
+    public static void ValidateData(int age, double weight, double height)
     {
-        if (peso <= 0)
-            throw new DomainException("Peso deve ser maior que zero");
+        Throw.When.True(age <= 0, "Age must be greater than zero.");
+        Throw.When.True(weight <= 0, "Weight must be greater than zero.");
+        Throw.When.True(height <= 0, "Height must be greater than zero.");
+    }
+    
+    public void UpdateData(string gender, int age, double weight, double height)
+    {
+        ValidateData(age, weight, height);
 
-        if (altura <= 0)
-            throw new DomainException("Altura deve ser maior que zero");
+        Gender = gender;
+        Age = age;
+        Weight = weight;
+        Height = height;
 
-        Sexo = sexo;
-        Idade = idade;
-        Peso = peso;
-        Altura = altura;
-
-        CalcularImc();
+        CalculateBmi();
     }
 
-    private void CalcularImc()
+    private void CalculateBmi()
     {
-        Imc = Math.Round(Peso / (Altura * Altura), 2);
-        Classificacao = ClassificarImc(Imc);
+        Bmi = Math.Round(Weight / (Height * Height), 2);
+        Classification  = ClassifyBmi(Bmi);
     }
 
-    private static string ClassificarImc(double imc)
+    private static string ClassifyBmi(double bmi)
     {
-        return imc switch
+        return bmi switch
         {
-            < 18.5 => "Abaixo do peso",
-            < 25 => "Peso normal",
-            < 30 => "Sobrepeso",
-            _ => "Obesidade"
+            < 18.5 => "Underweight",
+            < 25 => "Normal weight",
+            < 30 => "Overweight",
+            _ => "Obesity"
         };
     }
 }
