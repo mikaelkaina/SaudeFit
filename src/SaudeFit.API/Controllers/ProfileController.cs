@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SaudeFit.Application.DTOs;
-using SaudeFit.Application.Interfaces;
 using System.Security.Claims;
 using SaudeFit.Application.Features.UserProfile.Commands.Create;
-using SaudeFit.Domain.Interfaces;
-
 namespace SaudeFit.API.Controllers;
 
 [Authorize]

@@ -1,6 +1,4 @@
 ﻿using SaudeFit.Application;
-using SaudeFit.Application.Interfaces;
-using SaudeFit.Application.Services;
 using SaudeFit.Domain.Interfaces;
 using SaudeFit.Infrastructure;
 using SaudeFit.Infrastructure.Identity;
@@ -27,8 +25,6 @@ builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddScoped<IAuthService, AuthService>();
 
-
-builder.Services.AddScoped<IProfileService, ProfileService>();
 
 builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
 builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();

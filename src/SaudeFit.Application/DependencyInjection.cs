@@ -4,6 +4,7 @@ using SaudeFit.Application.Features.Foods.Queries.GetAll;
 using SaudeFit.Application.Features.Foods.Queries.GetByCategory;
 using SaudeFit.Application.Features.UserProfile.Commands.Create;
 using SaudeFit.Application.Features.UserProfile.Commands.Update;
+using SaudeFit.Application.Features.UserProfile.Queries.GetUserProfile;
 
 namespace SaudeFit.Application;
 
@@ -19,6 +20,8 @@ public static class DependencyInjection
         
         services.AddScoped<ICreateUserProfileHandler,  CreateUserProfileHandler>();
         services.AddScoped<IUpdateUserProfileHandler, UpdateUserProfileHandler>();
+        services.AddScoped<IGetUserProfileHandler, GetUserProfileHandler>();
+        
         return services;
     }
 }
