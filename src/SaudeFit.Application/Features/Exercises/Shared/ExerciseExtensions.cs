@@ -1,8 +1,10 @@
-﻿namespace SaudeFit.Application.Features.Exercises.Queries.GetAll;
+﻿using SaudeFit.Domain.Entities;
 
-public static class GetAllExerciseExtensions
+namespace SaudeFit.Application.Features.Exercises.Shared;
+
+public static class ExerciseExtensions
 {
-    public static GetAllExerciseResponse ToResponse(this Domain.Entities.Exercise exercise) =>
+    public static ExerciseResponse ToResponse(this Exercise exercise) =>
         new(
             exercise.Name,
             exercise.Description,

@@ -1,6 +1,6 @@
-﻿namespace SaudeFit.Application.Features.Exercises.Queries.GetAll;
+﻿namespace SaudeFit.Application.Features.Exercises.Shared;
 
-public record GetAllExerciseResponse(
+public record ExerciseResponse(
     string Name,
     string? Description,
     string DifficultyLevel,

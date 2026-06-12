@@ -1,4 +1,5 @@
-﻿using SaudeFit.Domain.Interfaces;
+﻿using SaudeFit.Application.Features.Foods.Shared;
+using SaudeFit.Domain.Interfaces;
 
 namespace SaudeFit.Application.Features.Foods.Queries.GetAll;
 
@@ -11,7 +12,7 @@ public class GetAllFoodHandler : IGetAllFoodHandler
         _repository = repository;
     }
 
-    public async Task<IEnumerable<GetAllFoodResponse>> Handle()
+    public async Task<IEnumerable<FoodResponse>> Handle()
     {
         var foods = await _repository.GetTodosAsync();
 

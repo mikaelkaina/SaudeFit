@@ -1,6 +1,8 @@
-﻿namespace SaudeFit.Application.Features.Foods.Queries.GetAll;
+﻿using SaudeFit.Application.Features.Foods.Shared;
+
+namespace SaudeFit.Application.Features.Foods.Queries.GetAll;
 
 public interface IGetAllFoodHandler
 {
-    Task<IEnumerable<GetAllFoodResponse>> Handle();
+    Task<IEnumerable<FoodResponse>> Handle();
 }

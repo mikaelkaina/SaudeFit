@@ -1,4 +1,5 @@
-﻿using SaudeFit.Domain.Interfaces;
+﻿using SaudeFit.Application.Features.Exercises.Shared;
+using SaudeFit.Domain.Interfaces;
 
 namespace SaudeFit.Application.Features.Exercises.Queries.GetAll;
 
@@ -10,7 +11,7 @@ public class GetAllExerciseHandler : IGetAllExerciseHandler
     {
         _repository = repository;
     }
-    public async Task<IEnumerable<GetAllExerciseResponse>> Handle()
+    public async Task<IEnumerable<ExerciseResponse>> Handle()
     {
         var exercise = await _repository.GetTodosAsync();
         return exercise.Select(e => e.ToResponse()).ToList();
