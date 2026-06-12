@@ -2,5 +2,5 @@
 
 public interface IGetUserProfileHandler
 {
-    Task<GetUserProfileResponse?> Handle(GetUserProfileRequest request);
+    Task<GetUserProfileResponse> Handle(GetUserProfileRequest request);
 }

@@ -8,6 +8,7 @@ using SaudeFit.Infrastructure.Data;
 using System.Text;
 using SaudeFit.Domain.Interfaces;
 using SaudeFit.Infrastructure.Identity;
+using SaudeFit.Infrastructure.Repositories;
 
 namespace SaudeFit.Infrastructure;
 
@@ -44,6 +45,10 @@ public static class DependencyInjection
             };
         });
         
+        services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IProfileRepository, ProfileRepository>();
+        services.AddScoped<IExerciseRepository, ExerciseRepository>();
+        services.AddScoped<IFoodRepository, FoodRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;

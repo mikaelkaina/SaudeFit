@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using SaudeFit.API.Controllers.Body;
 using SaudeFit.Application.Features.UserProfile.Commands.Create;
+using SaudeFit.Application.Features.UserProfile.Commands.Update;
+using SaudeFit.Application.Features.UserProfile.Queries.GetUserProfile;
+
 namespace SaudeFit.API.Controllers;
 
 [Authorize]
@@ -9,24 +13,27 @@ namespace SaudeFit.API.Controllers;
 [Route("api/[controller]")]
 public class ProfileController : ControllerBase
 {
-    private readonly IProfileService _profileService;
-    private readonly ICreateUserProfileHandler _createUserProfileHandler;
+    private readonly ICreateUserProfileHandler _createUserProfile;
+    private readonly IUpdateUserProfileHandler _updateUserProfile;
+    private readonly IGetUserProfileHandler _getUserProfile;
 
-    public ProfileController(IProfileService profileService, CreateUserProfileHandler createUserProfileHandler)
+    public ProfileController(
+        ICreateUserProfileHandler createUserProfile,
+        IUpdateUserProfileHandler updateUserProfile,
+        IGetUserProfileHandler getUserProfile)
     {
-        _profileService = profileService;
-        _createUserProfileHandler = createUserProfileHandler;
+        _createUserProfile = createUserProfile;
+        _updateUserProfile = updateUserProfile;
+        _getUserProfile = getUserProfile;
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateProfile([FromBody] CreateProfileDto dto)
+    public async Task<IActionResult> CreateProfile([FromBody] ProfileBody body, CancellationToken cancellationToken)
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (userId == null) return Unauthorized();
+        var userId = GetUserId();
 
-        var result = await _profileService.CreateProfileAsync(userId, dto);
-        if (result == null)
-            return BadRequest(new { message = "Perfil já existente." });
+        var request = new CreateUserProfileRequest(userId, body.Gender, body.Age, body.Weight, body.Height);
+        var result = await _createUserProfile.Handle(request, cancellationToken);
 
         return Ok(result);
     }
@@ -34,24 +41,32 @@ public class ProfileController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetProfile()
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (userId == null) return Unauthorized();
+        var userId = GetUserId();
 
-        var result = await _profileService.GetProfileByUserAsync(userId);
-        if (result == null) return NotFound(new { message = "Perfil não encontrado." });
+        var request = new GetUserProfileRequest(userId);
+        var result = await _getUserProfile.Handle(request);
 
         return Ok(result);
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateProfile([FromBody] CreateProfileDto dto)
+    public async Task<IActionResult> UpdateProfile([FromBody] ProfileBody body, CancellationToken cancellationToken)
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (userId == null) return Unauthorized();
+        var userId = GetUserId();
 
-        var result = await _profileService.UpdateProfileAsync(userId, dto);
-        if (result == null) return BadRequest(new { message = "Não foi possível atualizar o perfil." });
+        var request = new UpdateUserProfileRequest(userId, body.Gender, body.Age, body.Weight, body.Height);
+        var result = await _updateUserProfile.Handle(request, cancellationToken);
 
         return Ok(result);
+    }
+
+    private string GetUserId()
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        if (userId is null)
+            throw new UnauthorizedAccessException();
+
+        return userId;
     }
 }
