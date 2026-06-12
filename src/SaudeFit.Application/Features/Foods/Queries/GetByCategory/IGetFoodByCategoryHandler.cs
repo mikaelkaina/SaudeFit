@@ -1,6 +1,8 @@
-﻿namespace SaudeFit.Application.Features.Foods.Queries.GetByCategory;
+﻿using SaudeFit.Application.Features.Foods.Shared;
+
+namespace SaudeFit.Application.Features.Foods.Queries.GetByCategory;
 
 public interface IGetFoodByCategoryHandler
 {
-    Task<IEnumerable<GetFoodByCategoryResponse>> Handle(string categoria);
+    Task<IEnumerable<FoodResponse>> Handle(string categoria);
 }

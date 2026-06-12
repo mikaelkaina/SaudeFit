@@ -1,6 +1,6 @@
-﻿namespace SaudeFit.Application.Features.Foods.Queries.GetAll;
+﻿namespace SaudeFit.Application.Features.Foods.Shared;
 
-public record GetAllFoodResponse(
+public record FoodResponse(
     string Name,
     string Snack,
     string Description,

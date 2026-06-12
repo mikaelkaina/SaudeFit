@@ -35,13 +35,14 @@ app.UseHttpsRedirection();
 app.UseCors("Meucors");
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
+
 app.UseAuthorization();
 
 app.UseBlazorFrameworkFiles();
+
 app.UseStaticFiles();
 
 app.MapFallbackToFile("index.html");
-
 
 app.MapControllers();
 

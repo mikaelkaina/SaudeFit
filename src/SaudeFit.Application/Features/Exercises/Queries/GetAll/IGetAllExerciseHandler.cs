@@ -1,6 +1,8 @@
-﻿namespace SaudeFit.Application.Features.Exercises.Queries.GetAll;
+﻿using SaudeFit.Application.Features.Exercises.Shared;
+
+namespace SaudeFit.Application.Features.Exercises.Queries.GetAll;
 
 public interface IGetAllExerciseHandler
 {
-    Task <IEnumerable<GetAllExerciseResponse>> Handle();
+    Task <IEnumerable<ExerciseResponse>> Handle();
 }

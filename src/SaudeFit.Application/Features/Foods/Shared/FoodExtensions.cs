@@ -1,10 +1,10 @@
 ﻿using SaudeFit.Domain.Entities;
 
-namespace SaudeFit.Application.Features.Foods.Queries.GetByCategory;
+namespace SaudeFit.Application.Features.Foods.Shared;
 
-public static class GetFoodByCategoryExtencions
+public static class FoodExtensions
 {
-    public static GetFoodByCategoryResponse ToResponse(this Food foods) =>
+    public static FoodResponse ToResponse(this Food foods) =>
         new(
             foods.Name,
             foods.Snack, 
