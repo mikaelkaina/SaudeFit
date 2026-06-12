@@ -1,8 +1,6 @@
-﻿using SaudeFit.Application;
-using SaudeFit.Domain.Interfaces;
+﻿using SaudeFit.API.Middleware;
+using SaudeFit.Application;
 using SaudeFit.Infrastructure;
-using SaudeFit.Infrastructure.Identity;
-using SaudeFit.Infrastructure.Repositories;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,16 +21,9 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddScoped<IAuthService, AuthService>();
-
-
-builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
-builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
-builder.Services.AddScoped<IFoodRepository, FoodRepository>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
@@ -43,8 +34,8 @@ app.UseHttpsRedirection();
 
 app.UseCors("Meucors");
 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseAuthorization();
-
 
 app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
