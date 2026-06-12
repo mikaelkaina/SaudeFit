@@ -1,4 +1,4 @@
-﻿using Menso.Tools.Exceptions;
+﻿using SaudeFit.Domain.Exceptions;
 using SaudeFit.Domain.Interfaces;
 
 namespace SaudeFit.Application.Features.UserProfile.Commands.Create;
@@ -17,7 +17,8 @@ public class CreateUserProfileHandler : ICreateUserProfileHandler
     public async Task<CreateUserProfileResponse> Handle(CreateUserProfileRequest request, CancellationToken cancellationToken)
     {
         var existingProfile = await _repository.GetByUserIdAsync(request.UserId);
-        Throw.When.NotNull(existingProfile, "User already has a profile.");
+        if (existingProfile is not null)
+            throw new DomainException("User already has a profile.");
 
         var profile = new Domain.Entities.UserProfile(
             request.UserId,
