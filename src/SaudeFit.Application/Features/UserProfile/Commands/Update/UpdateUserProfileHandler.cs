@@ -1,4 +1,5 @@
 ﻿using Menso.Tools.Exceptions;
+using SaudeFit.Domain.Exceptions;
 using SaudeFit.Domain.Interfaces;
 
 namespace SaudeFit.Application.Features.UserProfile.Commands.Update;
@@ -17,7 +18,8 @@ public class UpdateUserProfileHandler : IUpdateUserProfileHandler
     public async Task<UpdateUserProfileResponse> Handle(UpdateUserProfileRequest request, CancellationToken cancellationToken)
     {
         var profile = await _repository.GetByUserIdAsync(request.UserId);
-        Throw.When.Null(profile, "User profile not found.");
+        if (profile is null)
+            throw new NotFoundException("User profile not found.");
 
         profile.UpdateData(
             request.Gender,

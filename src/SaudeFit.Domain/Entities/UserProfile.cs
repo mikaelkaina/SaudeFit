@@ -1,4 +1,4 @@
-﻿using Menso.Tools.Exceptions;
+﻿using SaudeFit.Domain.Exceptions;
 
 namespace SaudeFit.Domain.Entities;
 
@@ -28,11 +28,16 @@ public class UserProfile
         CalculateBmi();
     }
 
-    public static void ValidateData(int age, double weight, double height)
+    private static void ValidateData(int age, double weight, double height)
     {
-        Throw.When.True(age <= 0, "Age must be greater than zero.");
-        Throw.When.True(weight <= 0, "Weight must be greater than zero.");
-        Throw.When.True(height <= 0, "Height must be greater than zero.");
+        if (age <= 0)
+            throw new DomainException("Age must be greater than zero.");
+
+        if (weight <= 0)
+            throw new DomainException("Weight must be greater than zero.");
+
+        if (height <= 0)
+            throw new DomainException("Height must be greater than zero.");
     }
     
     public void UpdateData(string gender, int age, double weight, double height)

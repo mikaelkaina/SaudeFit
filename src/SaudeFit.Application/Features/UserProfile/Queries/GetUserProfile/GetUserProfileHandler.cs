@@ -15,9 +15,8 @@ public class GetUserProfileHandler : IGetUserProfileHandler
     public async Task<GetUserProfileResponse> Handle(GetUserProfileRequest request)
     {
         var profile = await _repository.GetByUserIdAsync(request.UserId);
-
         if (profile is null)
-            throw new NotFoundException("Profile not found.");
+            throw new NotFoundException("User profile not found.");
 
         return profile.ToResponse();
     }
