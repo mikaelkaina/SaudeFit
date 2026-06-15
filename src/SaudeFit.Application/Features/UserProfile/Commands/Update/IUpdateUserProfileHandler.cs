@@ -1,6 +1,8 @@
-﻿namespace SaudeFit.Application.Features.UserProfile.Commands.Update;
+﻿using SaudeFit.Application.Features.UserProfile.Commands.Shared;
+
+namespace SaudeFit.Application.Features.UserProfile.Commands.Update;
 
 public interface IUpdateUserProfileHandler
 {
-    Task<UpdateUserProfileResponse> Handle(UpdateUserProfileRequest request, CancellationToken cancellationToken);
+    Task<ProfileResponse> Handle(UpdateUserProfileRequest request, CancellationToken cancellationToken);
 }

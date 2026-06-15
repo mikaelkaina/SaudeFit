@@ -1,4 +1,4 @@
-﻿using Menso.Tools.Exceptions;
+﻿using SaudeFit.Application.Features.UserProfile.Commands.Shared;
 using SaudeFit.Domain.Exceptions;
 using SaudeFit.Domain.Interfaces;
 
@@ -15,7 +15,7 @@ public class UpdateUserProfileHandler : IUpdateUserProfileHandler
         _unitOfWork = unitOfWork;
     }
     
-    public async Task<UpdateUserProfileResponse> Handle(UpdateUserProfileRequest request, CancellationToken cancellationToken)
+    public async Task<ProfileResponse> Handle(UpdateUserProfileRequest request, CancellationToken cancellationToken)
     {
         var profile = await _repository.GetByUserIdAsync(request.UserId);
         if (profile is null)
