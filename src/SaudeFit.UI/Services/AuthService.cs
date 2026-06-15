@@ -1,5 +1,4 @@
-﻿using SaudeFit.UI.Models;
-using System.Net.Http.Json;
+﻿using System.Net.Http.Json;
 using SaudeFit.UI.Models.Auth;
 
 namespace SaudeFit.UI.Services;
