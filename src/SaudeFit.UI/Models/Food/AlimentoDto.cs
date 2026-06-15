@@ -1,4 +1,4 @@
-﻿namespace SaudeFit.UI.Models;
+﻿namespace SaudeFit.UI.Models.Food;
 
 public class AlimentoDto
 {

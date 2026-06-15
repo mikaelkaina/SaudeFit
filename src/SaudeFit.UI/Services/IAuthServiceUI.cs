@@ -1,4 +1,4 @@
-﻿using SaudeFit.UI.Models;
+﻿using SaudeFit.UI.Models.Auth;
 
 namespace SaudeFit.UI.Services;
 
