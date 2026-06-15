@@ -1,6 +1,6 @@
-﻿namespace SaudeFit.Application.Features.UserProfile.Commands.Update;
+﻿namespace SaudeFit.Application.Features.UserProfile.Commands.Shared;
 
-public record UpdateUserProfileResponse(
+public record ProfileResponse(
     string UserId,
     string Gender,
     int Age,

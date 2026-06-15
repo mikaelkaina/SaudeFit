@@ -1,4 +1,5 @@
-﻿using SaudeFit.Domain.Exceptions;
+﻿using SaudeFit.Application.Features.UserProfile.Commands.Shared;
+using SaudeFit.Domain.Exceptions;
 using SaudeFit.Domain.Interfaces;
 
 namespace SaudeFit.Application.Features.UserProfile.Commands.Create;
@@ -14,7 +15,7 @@ public class CreateUserProfileHandler : ICreateUserProfileHandler
         _unitOfWork = unitOfWork;
     }
     
-    public async Task<CreateUserProfileResponse> Handle(CreateUserProfileRequest request, CancellationToken cancellationToken)
+    public async Task<ProfileResponse> Handle(CreateUserProfileRequest request, CancellationToken cancellationToken)
     {
         var existingProfile = await _repository.GetByUserIdAsync(request.UserId);
         if (existingProfile is not null)
@@ -29,7 +30,7 @@ public class CreateUserProfileHandler : ICreateUserProfileHandler
 
         await _repository.AddAsync(profile);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
-        
+
         return profile.ToResponse();
     }
 }

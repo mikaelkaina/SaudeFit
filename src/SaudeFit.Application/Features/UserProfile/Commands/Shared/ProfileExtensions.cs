@@ -1,8 +1,8 @@
-﻿namespace SaudeFit.Application.Features.UserProfile.Commands.Create;
+﻿namespace SaudeFit.Application.Features.UserProfile.Commands.Shared;
 
-public static class CreateUserProfileExtensions
+public static class ProfileExtensions
 {
-    public static CreateUserProfileResponse ToResponse(this Domain.Entities.UserProfile profile) =>
+    public static ProfileResponse ToResponse(this Domain.Entities.UserProfile profile) =>
         new(
             profile.UserId,
             profile.Gender,
