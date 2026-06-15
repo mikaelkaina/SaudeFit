@@ -1,4 +1,4 @@
-﻿namespace SaudeFit.UI.Models;
+﻿namespace SaudeFit.UI.Models.Auth;
 
 public class LoginRequest
 {
