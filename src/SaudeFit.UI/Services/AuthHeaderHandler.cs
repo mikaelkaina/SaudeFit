@@ -1,5 +1,4 @@
-﻿using Microsoft.JSInterop;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 
 namespace SaudeFit.UI.Services;
 
