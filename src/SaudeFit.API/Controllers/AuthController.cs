@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SaudeFit.Infrastructure.Identity;
 using SaudeFit.Infrastructure.Identity.DTOs;
+using SaudeFit.Infrastructure.Identity.Services;
 
 namespace SaudeFit.API.Controllers;
 
