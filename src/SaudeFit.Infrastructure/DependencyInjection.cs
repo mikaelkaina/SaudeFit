@@ -9,6 +9,7 @@ using System.Text;
 using SaudeFit.Domain.Interfaces;
 using SaudeFit.Infrastructure.Identity;
 using SaudeFit.Infrastructure.Repositories;
+using SaudeFit.Infrastructure.Identity.Services;
 
 namespace SaudeFit.Infrastructure;
 

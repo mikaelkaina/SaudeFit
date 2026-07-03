@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using SaudeFit.Infrastructure.Identity.DTOs;
 
-namespace SaudeFit.Infrastructure.Identity;
+namespace SaudeFit.Infrastructure.Identity.Services;
 
 public class AuthService : IAuthService
 {
