@@ -4,12 +4,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using SaudeFit.Infrastructure.Data;
-using System.Text;
 using SaudeFit.Domain.Interfaces;
+using SaudeFit.Infrastructure.Data;
 using SaudeFit.Infrastructure.Identity;
-using SaudeFit.Infrastructure.Repositories;
+using SaudeFit.Infrastructure.Identity.DTOs;
 using SaudeFit.Infrastructure.Identity.Services;
+using SaudeFit.Infrastructure.Repositories;
+using System.Text;
 
 namespace SaudeFit.Infrastructure;
 
@@ -24,8 +25,10 @@ public static class DependencyInjection
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
-        var jwtSettings = configuration.GetSection("Jwt");
-        var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]!);
+        services.Configure<JwtSettings>(configuration.GetSection("Jwt"));
+
+        var jwtSettings = configuration.GetSection("Jwt").Get<JwtSettings>()!;
+        var key = Encoding.UTF8.GetBytes(jwtSettings.Key);
 
         services.AddAuthentication(options =>
         {
@@ -40,12 +43,12 @@ public static class DependencyInjection
                 ValidateAudience = true,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
-                ValidIssuer = jwtSettings["Issuer"],
-                ValidAudience = jwtSettings["Audience"],
+                ValidIssuer = jwtSettings.Issuer,
+                ValidAudience = jwtSettings.Audience,
                 IssuerSigningKey = new SymmetricSecurityKey(key)
             };
         });
-        
+
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IProfileRepository, ProfileRepository>();
         services.AddScoped<IExerciseRepository, ExerciseRepository>();
@@ -55,3 +58,4 @@ public static class DependencyInjection
         return services;
     }
 }
+

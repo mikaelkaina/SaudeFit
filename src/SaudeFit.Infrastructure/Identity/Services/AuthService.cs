@@ -1,22 +1,22 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SaudeFit.Infrastructure.Identity.DTOs;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace SaudeFit.Infrastructure.Identity.Services;
 
 public class AuthService : IAuthService
 {
     private readonly UserManager<ApplicationUser> _userManager;
-    private readonly IConfiguration _configuration;
+    private readonly JwtSettings _jwtSettings;
 
-    public AuthService(UserManager<ApplicationUser> userManager, IConfiguration configuration)
+    public AuthService(UserManager<ApplicationUser> userManager, IOptions<JwtSettings> jwtOptions)
     {
         _userManager = userManager;
-        _configuration = configuration;
+        _jwtSettings = jwtOptions.Value;
     }
 
     public async Task<bool> RegisterAsync(AuthRequest request)
@@ -33,7 +33,7 @@ public class AuthService : IAuthService
             return null;
 
         var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!);
+        var key = Encoding.UTF8.GetBytes(_jwtSettings.Key);
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {
@@ -42,9 +42,9 @@ public class AuthService : IAuthService
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
                 new Claim(ClaimTypes.Name, user.UserName!)
             }),
-            Expires = DateTime.UtcNow.AddMinutes(Convert.ToDouble(_configuration["Jwt:ExpiresInMinutes"])),
-            Issuer = _configuration["Jwt:Issuer"],
-            Audience = _configuration["Jwt:Audience"],
+            Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.ExpiresInMinutes),
+            Issuer = _jwtSettings.Issuer,
+            Audience = _jwtSettings.Audience,
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         };
 
@@ -52,3 +52,4 @@ public class AuthService : IAuthService
         return new AuthResponse(tokenHandler.WriteToken(token), tokenDescriptor.Expires!.Value);
     }
 }
+
