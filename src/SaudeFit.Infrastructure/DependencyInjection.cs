@@ -53,6 +53,7 @@ public static class DependencyInjection
         services.AddScoped<IProfileRepository, ProfileRepository>();
         services.AddScoped<IExerciseRepository, ExerciseRepository>();
         services.AddScoped<IFoodRepository, FoodRepository>();
+
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;
