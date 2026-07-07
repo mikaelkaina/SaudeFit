@@ -4,11 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using SaudeFit.Application.Abstractions;
 using SaudeFit.Domain.Interfaces;
 using SaudeFit.Infrastructure.Data;
-using SaudeFit.Infrastructure.Generator;
 using SaudeFit.Infrastructure.Identity;
 using SaudeFit.Infrastructure.Identity.DTOs;
+using SaudeFit.Infrastructure.Identity.Generator;
 using SaudeFit.Infrastructure.Identity.Services;
 using SaudeFit.Infrastructure.Repositories;
 using System.Text;
@@ -50,9 +51,9 @@ public static class DependencyInjection
             };
         });
 
+        services.AddScoped<IIdentityService, IdentityService>();
         services.AddScoped<ITokenGenerator, JwtTokenGenerator>();
 
-        services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IProfileRepository, ProfileRepository>();
         services.AddScoped<IExerciseRepository, ExerciseRepository>();
         services.AddScoped<IFoodRepository, FoodRepository>();

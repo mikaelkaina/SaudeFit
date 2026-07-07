@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using SaudeFit.Application.Features.Auth.Login;
+using SaudeFit.Application.Features.Auth.Register;
 using SaudeFit.Application.Features.Exercises.Queries.GetAll;
 using SaudeFit.Application.Features.Foods.Queries.GetAll;
 using SaudeFit.Application.Features.Foods.Queries.GetByCategory;
@@ -21,7 +23,10 @@ public static class DependencyInjection
         services.AddScoped<ICreateUserProfileHandler,  CreateUserProfileHandler>();
         services.AddScoped<IUpdateUserProfileHandler, UpdateUserProfileHandler>();
         services.AddScoped<IGetUserProfileHandler, GetUserProfileHandler>();
-        
+
+        services.AddScoped<ILoginCommandHandler, LoginCommandHandler>();
+        services.AddScoped<IRegisterCommandHandler, RegisterCommandHandler>();
+
         return services;
     }
 }
