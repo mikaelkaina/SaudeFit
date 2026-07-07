@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using SaudeFit.Infrastructure.Identity;
+using SaudeFit.Application.Abstractions;
+using SaudeFit.Application.Common;
 using SaudeFit.Infrastructure.Identity.DTOs;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -17,7 +18,7 @@ public class JwtTokenGenerator : ITokenGenerator
         _jwtSettings = jwtOptions.Value;
     }
 
-    public AuthResponse GenerateToken(ApplicationUser user)
+    public Application.Common.AuthResponse GenerateToken(AuthenticatedUser user)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.UTF8.GetBytes(_jwtSettings.Key);
@@ -27,7 +28,7 @@ public class JwtTokenGenerator : ITokenGenerator
             Subject = new ClaimsIdentity(new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
-                new Claim(ClaimTypes.Name, user.UserName!)
+                new Claim(ClaimTypes.Name, user.UserName)
             }),
             Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.ExpiresInMinutes),
             Issuer = _jwtSettings.Issuer,
@@ -36,6 +37,6 @@ public class JwtTokenGenerator : ITokenGenerator
         };
 
         var token = tokenHandler.CreateToken(tokenDescriptor);
-        return new AuthResponse(tokenHandler.WriteToken(token), tokenDescriptor.Expires!.Value);
+        return new Application.Common.AuthResponse(tokenHandler.WriteToken(token), tokenDescriptor.Expires!.Value);
     }
 }
