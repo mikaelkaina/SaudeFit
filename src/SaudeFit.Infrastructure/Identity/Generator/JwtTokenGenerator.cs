@@ -7,7 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace SaudeFit.Infrastructure.Generator;
+namespace SaudeFit.Infrastructure.Identity.Generator;
 
 public class JwtTokenGenerator : ITokenGenerator
 {
@@ -18,7 +18,7 @@ public class JwtTokenGenerator : ITokenGenerator
         _jwtSettings = jwtOptions.Value;
     }
 
-    public Application.Common.AuthResponse GenerateToken(AuthenticatedUser user)
+    public AuthResponse GenerateToken(AuthenticatedUser user)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.UTF8.GetBytes(_jwtSettings.Key);
@@ -37,6 +37,6 @@ public class JwtTokenGenerator : ITokenGenerator
         };
 
         var token = tokenHandler.CreateToken(tokenDescriptor);
-        return new Application.Common.AuthResponse(tokenHandler.WriteToken(token), tokenDescriptor.Expires!.Value);
+        return new AuthResponse(tokenHandler.WriteToken(token), tokenDescriptor.Expires!.Value);
     }
 }
