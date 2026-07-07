@@ -1,6 +1,6 @@
 ﻿using SaudeFit.Application.Common;
 
-namespace SaudeFit.Application.Features.Auth.Commands.Login;
+namespace SaudeFit.Application.Features.Auth.Login;
 
 public interface ILoginCommandHandler
 {

@@ -1,7 +1,7 @@
 ﻿using SaudeFit.Application.Abstractions;
 using SaudeFit.Application.Common;
 
-namespace SaudeFit.Application.Features.Auth.Commands.Login;
+namespace SaudeFit.Application.Features.Auth.Login;
 
 public class LoginCommandHandler : ILoginCommandHandler
 {
