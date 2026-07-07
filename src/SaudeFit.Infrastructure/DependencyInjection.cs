@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using SaudeFit.Domain.Interfaces;
 using SaudeFit.Infrastructure.Data;
+using SaudeFit.Infrastructure.Generator;
 using SaudeFit.Infrastructure.Identity;
 using SaudeFit.Infrastructure.Identity.DTOs;
 using SaudeFit.Infrastructure.Identity.Services;
@@ -48,6 +49,8 @@ public static class DependencyInjection
                 IssuerSigningKey = new SymmetricSecurityKey(key)
             };
         });
+
+        services.AddScoped<ITokenGenerator, JwtTokenGenerator>();
 
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IProfileRepository, ProfileRepository>();
